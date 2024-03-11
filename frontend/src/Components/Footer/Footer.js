@@ -40,7 +40,7 @@ export default function Footer() {
               <div class="row">
                 <div class="col-6">
                   <a href="#" class="footer-widgets__link">
-                    آموزش استیل دهی
+                    آموزش استایل 
                   </a>
                 </div>
 

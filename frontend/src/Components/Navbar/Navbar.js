@@ -22,32 +22,32 @@ export default function Navbar() {
 
               <li class="main-header__item">
                 <a href="#" class="main-header__link">
-                محصولات الکتریکی
+                  محصولات الکتریکی
                   <i class="fas fa-angle-down main-header__link-icon"></i>
                   <ul class="main-header__dropdown">
                     <li class="main-header__dropdown-item">
                       <a href="#" class="main-header__dropdown-link">
-                      لپ تاپ
+                        لپ تاپ
                       </a>
                     </li>
                     <li class="main-header__dropdown-item">
                       <a href="#" class="main-header__dropdown-link">
-                      هدفون
+                        هدفون
                       </a>
                     </li>
                     <li class="main-header__dropdown-item">
                       <a href="#" class="main-header__dropdown-link">
-                      پرینتر
+                        پرینتر
                       </a>
                     </li>
                     <li class="main-header__dropdown-item">
                       <a href="#" class="main-header__dropdown-link">
-                      هدست
+                        هدست
                       </a>
                     </li>
                     <li class="main-header__dropdown-item">
                       <a href="#" class="main-header__dropdown-link">
-                      دوربین
+                        دوربین
                       </a>
                     </li>
                   </ul>
@@ -60,28 +60,28 @@ export default function Navbar() {
                   <ul class="main-header__dropdown">
                     <li class="main-header__dropdown-item">
                       <a href="#" class="main-header__dropdown-link">
-                      گوشی آیفون
+                        گوشی آیفون
                       </a>
                     </li>
                     <li class="main-header__dropdown-item">
                       <a href="#" class="main-header__dropdown-link">
-                      گوشی سامسونگ
+                        گوشی سامسونگ
                       </a>
                     </li>
                     <li class="main-header__dropdown-item">
                       <a href="#" class="main-header__dropdown-link">
-                      گوشی شبائومی
+                        گوشی شبائومی
                       </a>
                     </li>
                     <li class="main-header__dropdown-item">
                       <a href="#" class="main-header__dropdown-link">
-                      گوشی نوکیا
+                        گوشی نوکیا
                       </a>
                     </li>
                   </ul>
                 </a>
               </li>
-              
+
               <li class="main-header__item">
                 <a href="#" class="main-header__link">
                   مد و پوشاک
@@ -107,6 +107,52 @@ export default function Navbar() {
               </li>
               <li class="main-header__item">
                 <a href="#" class="main-header__link">
+                  زیبایی و سلامت
+                  <i class="fas fa-angle-down main-header__link-icon"></i>
+                  <ul class="main-header__dropdown">
+                    <li class="main-header__dropdown-item">
+                      <a href="#" class="main-header__dropdown-link">
+                        لوازم آرایشی
+                      </a>
+                    </li>
+                    <li class="main-header__dropdown-item">
+                      <a href="#" class="main-header__dropdown-link">
+                        مراقبت از پوست
+                      </a>
+                    </li>
+                    <li class="main-header__dropdown-item">
+                      <a href="#" class="main-header__dropdown-link">
+                        عطر و ادکلن
+                      </a>
+                    </li>
+                  </ul>
+                </a>
+              </li>
+              <li class="main-header__item">
+                <a href="#" class="main-header__link">
+                  کالاهای سوپرمارکتی
+                  <i class="fas fa-angle-down main-header__link-icon"></i>
+                  <ul class="main-header__dropdown">
+                    <li class="main-header__dropdown-item">
+                      <a href="#" class="main-header__dropdown-link">
+                        کالاهای اساسی و نوشیدنی
+                      </a>
+                    </li>
+                    <li class="main-header__dropdown-item">
+                      <a href="#" class="main-header__dropdown-link">
+                        روغن
+                      </a>
+                    </li>
+                    <li class="main-header__dropdown-item">
+                      <a href="#" class="main-header__dropdown-link">
+                        لبنیات
+                      </a>
+                    </li>
+                  </ul>
+                </a>
+              </li>
+              <li class="main-header__item">
+                <a href="#" class="main-header__link">
                   مقالات
                   <i class="fas fa-angle-down main-header__link-icon"></i>
                   <ul class="main-header__dropdown">
@@ -123,6 +169,11 @@ export default function Navbar() {
                     <li class="main-header__dropdown-item">
                       <a href="#" class="main-header__dropdown-link">
                         پوشاک
+                      </a>
+                    </li>
+                    <li class="main-header__dropdown-item">
+                      <a href="#" class="main-header__dropdown-link">
+                        تغذیه
                       </a>
                     </li>
                   </ul>
