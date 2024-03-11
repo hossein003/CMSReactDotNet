@@ -8,7 +8,7 @@ export default function Navbar() {
         <div class="main-header__content">
           <div class="main-header__right">
             <img
-              src="images/logo/Logo.png"
+              src="/images/logo/Logo.png"
               class="main-header__logo"
               alt="لوگوی مارکت لند"
             />

@@ -7,7 +7,7 @@ export default function () {
       <div class="course-box">
         <a href="#">
           <img
-            src="https://parsstock.ir/600/10295/1577987-%D8%A8%D9%86%D8%B1-%D8%AA%D8%A8%D9%84%DB%8C%D8%BA%D8%A7%D8%AA%DB%8C-%D9%88%D8%A7%D9%82%D8%B9-%DA%AF%D8%B1%D8%A7%DB%8C%D8%A7%D9%86%D9%87-%D9%BE%D9%88%D8%B3%D8%AA%D8%B1-%D8%AE%D8%B7-%D9%85%D8%AD%D8%B5%D9%88%D9%84%D8%A7%D8%AA-%D8%A7%D9%93%D8%B1%D8%A7%DB%8C%D8%B4%DB%8C-%D8%B4%D8%A8%D8%A7%D9%86%D9%87-%D9%85%D8%B1%D8%A7%D9%82%D8%A8%D8%AA-%D8%A7%D8%B2-%D9%BE%D9%88%D8%B3%D8%AA-%D8%B2%D9%86%D8%A7%D9%86.jpg"
+            src="/images/products/NightCosmetics.jpg"
             alt="Course img"
             class="course-box__img"
           />
@@ -26,27 +26,27 @@ export default function () {
             </div>
             <div class="course-box__rating">
               <img
-                src="images/svgs/star.svg"
+                src="/images/svgs/star.svg"
                 alt="rating"
                 class="course-box__star"
               />
               <img
-                src="images/svgs/star_fill.svg"
+                src="/images/svgs/star_fill.svg"
                 alt="rating"
                 class="course-box__star"
               />
               <img
-                src="images/svgs/star_fill.svg"
+                src="/images/svgs/star_fill.svg"
                 alt="rating"
                 class="course-box__star"
               />
               <img
-                src="images/svgs/star_fill.svg"
+                src="/images/svgs/star_fill.svg"
                 alt="rating"
                 class="course-box__star"
               />
               <img
-                src="images/svgs/star_fill.svg"
+                src="/images/svgs/star_fill.svg"
                 alt="rating"
                 class="course-box__star"
               />
