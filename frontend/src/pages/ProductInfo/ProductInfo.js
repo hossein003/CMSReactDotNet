@@ -5,6 +5,7 @@ import Footer from "../../Components/Footer/Footer";
 import "./ProductInfo.css";
 import Breadcrumb from "../../Components/Breadcrumb/Breadcrumb";
 import ProductDetailBox from "../../Components/ProductDetailBox/ProductDetailBox";
+import CommentsTextArea from "../../Components/CommentsTextArea/CommentsTextArea";
 
 export default function ProductInfo() {
   return (
@@ -331,8 +332,10 @@ export default function ProductInfo() {
                     میدان موج، مجتمع تجاری آفتاب، طبقه اول، واحد ۱۵
                   </p>
                 </div>
-
+                
                 {/* <!-- Finish Shop Details --> */}
+
+                <CommentsTextArea />
               </div>
             </div>
 
