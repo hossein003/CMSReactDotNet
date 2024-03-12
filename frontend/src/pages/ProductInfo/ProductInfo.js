@@ -3,6 +3,7 @@ import Topbar from "../../Components/Topbar/Topbar";
 import Navbar from "../../Components/Navbar/Navbar";
 import Footer from "../../Components/Footer/Footer";
 import "./ProductInfo.css";
+import Accordion from "react-bootstrap/Accordion";
 import Breadcrumb from "../../Components/Breadcrumb/Breadcrumb";
 import ProductDetailBox from "../../Components/ProductDetailBox/ProductDetailBox";
 import CommentsTextArea from "../../Components/CommentsTextArea/CommentsTextArea";
@@ -218,87 +219,65 @@ export default function ProductInfo() {
                       ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی
                       ایجاد کرد
                     </p>
-                  
                   </div>
                   <div class="introduction__btns">
                     <a href="#" class="introduction__btns-item">
                       دانلود مشخصات محصول
                     </a>
                   </div>
+                  <Accordion className="accordion" defaultActiveKey="0">
+                    <Accordion.Item eventKey="0" className="accordion-item">
+                      <Accordion.Header
+                        className="accordion-header"
+                        id="headingOne"
+                      >
+                        معرفی محصول
+                      </Accordion.Header>
+                      <Accordion.Body className="accordion-body introduction__accordion-body">
+                          <div class="introduction__accordion-right">
+                            <span class="introduction__accordion-count">1</span>
+                            &nbsp;
+                            <p class="introduction__accordion-link">
+                              ماندگاری کرم
+                            </p>
+                          </div>
+                          <div class="introduction__accordion-left">
+                            <span class="introduction__accordion-time">
+                              متوسط 4 ساعت
+                            </span>
+                          </div>
+                        </Accordion.Body>
+                        <Accordion.Body className="introduction__accordion-body">
+                          <div class="introduction__accordion-right">
+                            <span class="introduction__accordion-count">2</span>
+                            &nbsp;
+                            <p class="introduction__accordion-link">
+                              تولید کننده
+                            </p>
+                          </div>
+                          <div class="introduction__accordion-left">
+                            <span class="introduction__accordion-time">
+                              شرکت کرم سازی کرج
+                            </span>
+                          </div>
+                        </Accordion.Body>
+                        <Accordion.Body className="accordion-body introduction__accordion-body">
 
-                  <div class="introduction__topic">
-                    <div class="accordion" id="accordionExample">
-                      <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingOne">
-                          <button
-                            class="accordion-button"
-                            type="button"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#collapseOne"
-                            aria-expanded="true"
-                            aria-controls="collapseOne"
-                          >
-                            معرفی محصول
-                          </button>
-                        </h2>
-                        <div
-                          id="collapseOne"
-                          class="accordion-collapse collapse show"
-                          aria-labelledby="headingOne"
-                          data-bs-parent="#accordionExample"
-                        >
-                          <div class="accordion-body introduction__accordion-body">
-                            <div class="introduction__accordion-right">
-                              <span class="introduction__accordion-count">
-                                1
-                              </span>
-                              &nbsp;
-                              <a href="#" class="introduction__accordion-link">
-                                ماندگاری کرم
-                              </a>
-                            </div>
-                            <div class="introduction__accordion-left">
-                              <span class="introduction__accordion-time">
-                                متوسط 4 ساعت
-                              </span>
-                            </div>
+                          <div class="introduction__accordion-right">
+                            <span class="introduction__accordion-count">3</span>
+                            &nbsp;
+                            <p class="introduction__accordion-link">
+                              موارد مصرف
+                            </p>
                           </div>
-                          <div class="accordion-body introduction__accordion-body">
-                            <div class="introduction__accordion-right">
-                              <span class="introduction__accordion-count">
-                                2
-                              </span>
-                              &nbsp;
-                              <a href="#" class="introduction__accordion-link">
-                                تولید کننده
-                              </a>
-                            </div>
-                            <div class="introduction__accordion-left">
-                              <span class="introduction__accordion-time">
-                                شرکت کرم سازی کرج
-                              </span>
-                            </div>
+                          <div class="introduction__accordion-left">
+                            <span class="introduction__accordion-time">
+                              رطوبت پوست
+                            </span>
                           </div>
-                          <div class="accordion-body introduction__accordion-body">
-                            <div class="introduction__accordion-right">
-                              <span class="introduction__accordion-count">
-                                3
-                              </span>
-                              &nbsp;
-                              <a href="#" class="introduction__accordion-link">
-                                موارد مصرف
-                              </a>
-                            </div>
-                            <div class="introduction__accordion-left">
-                              <span class="introduction__accordion-time">
-                                رطوبت پوست
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                      </Accordion.Body>
+                    </Accordion.Item>
+                  </Accordion>
                 </div>
 
                 {/* <!-- Finish Introduction --> */}
@@ -332,7 +311,7 @@ export default function ProductInfo() {
                     میدان موج، مجتمع تجاری آفتاب، طبقه اول، واحد ۱۵
                   </p>
                 </div>
-                
+
                 {/* <!-- Finish Shop Details --> */}
 
                 <CommentsTextArea />
