@@ -3,6 +3,8 @@ import ProductInfo from "./pages/ProductInfo/ProductInfo"
 import Category from "./pages/Category/Category"
 import ArticleInfo from "./pages/ArticleInfo/ArticleInfo"
 import Products from "./pages/Products/Products"
+import Login from "./pages/Login/Login"
+import Register from "./pages/Register/Register"
 
 const routes = [
     {path: '/', element: <Index />},
@@ -10,6 +12,8 @@ const routes = [
     {path: '/category-info/:categoryName', element: <Category />},
     {path: '/article-info/:articleInfoName', element: <ArticleInfo />},
     {path: '/products', element: <Products />},
+    {path: '/login', element: <Login />},
+    {path: '/register', element: <Register />},
 ]
 
 
