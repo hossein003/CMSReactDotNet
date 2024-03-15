@@ -295,7 +295,7 @@ export default function ArticleInfo() {
                   </span>
                 </div>
                 <div className="course-info">
-                  <span className="course-info__courses-title">مقالات مرتبط مرتبط</span>
+                  <span className="course-info__courses-title">مقالات مرتبط</span>
                   <ul className="course-info__courses-list">
                     <li className="course-info__courses-list-item">
                       <a href="#" className="course-info__courses-link">
