@@ -246,7 +246,109 @@ export default function ArticleInfo() {
 
               <CommentsTextArea />
             </div>
-            <div className="col-4"></div>
+            <div className="col-4">
+              <div className="courses-info">
+                <div className="course-info">
+                  <div className="course-info__total">
+                    <div className="course-info__top">
+                      <div className="course-info__total-sale">
+                        <i className="fas fa-user-group course-info__total-sale-icon"></i>
+                        <span className="course-info__total-sale-text">
+                          &nbsp;تعداد دانلود کنندگان :&nbsp;
+                        </span>
+                        <span className="course-info__total-sale-number">178</span>
+                      </div>
+                    </div>
+                    <div className="course-info__bottom">
+                      <div className="course-info__total-comment">
+                        <i className="far fa-comments course-info__total-comment-icon"></i>
+                        <span className="course-info__total-comment-text">
+                          67 دیدگاه
+                        </span>
+                      </div>
+                      <div className="course-info__total-view">
+                        <i className="far fa-eye course-info__total-view-icon"></i>
+                        <span className="course-info__total-view-text">
+                          14,234 بازدید
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="course-info">
+                  <div className="course-info__header-short-url">
+                    <i className="fas fa-link course-info__short-url-icon"></i>
+                    <span className="course-info__short-url-text">لینک کوتاه</span>
+                  </div>
+                  <span className="course-info__short-url">
+                    https://marketland.ir/?article-id=117472
+                  </span>
+                </div>
+                <div className="course-info">
+                  <span className="course-info__topic-title">مشخصات مقاله</span>
+                  <span className="course-info__topic-text">
+                    برای دانلود مقاله روی کلمه
+                    <a href="#" style={{ color: "blue", FontWeight: "bold" }}>
+                      &nbsp;لینک&nbsp;
+                    </a>
+                    کلیک کنید
+                  </span>
+                </div>
+                <div className="course-info">
+                  <span className="course-info__courses-title">مقالات مرتبط مرتبط</span>
+                  <ul className="course-info__courses-list">
+                    <li className="course-info__courses-list-item">
+                      <a href="#" className="course-info__courses-link">
+                        <img
+                          src="/images/products/bababomb-cream.jpg"
+                          alt="Course Cover"
+                          className="course-info__courses-img"
+                        />
+                        <span className="course-info__courses-text">
+                          کرم بابا بمب تارت
+                        </span>
+                      </a>
+                    </li>
+                    <li className="course-info__courses-list-item">
+                      <a href="#" className="course-info__courses-link">
+                        <img
+                          src="/images/products/beautysleep-cream.jpg"
+                          alt="Course Cover"
+                          className="course-info__courses-img"
+                        />
+                        <span className="course-info__courses-text">
+                          کرم شب بیوتی اسلیپ ایت کازمتیکس
+                        </span>
+                      </a>
+                    </li>
+                    <li className="course-info__courses-list-item">
+                      <a href="#" className="course-info__courses-link">
+                        <img
+                          src="/images/products/vichy-cream.jpg"
+                          alt="Course Cover"
+                          className="course-info__courses-img"
+                        />
+                        <span className="course-info__courses-text">
+                          آبرسان و مرطوب کننده فیتوسولوشن نورمادرم ویشی
+                        </span>
+                      </a>
+                    </li>
+                    <li className="course-info__courses-list-item">
+                      <a href="#" className="course-info__courses-link">
+                        <img
+                          src="/images/products/nuxe-cream.jpg"
+                          alt="Course Cover"
+                          className="course-info__courses-img"
+                        />
+                        <span className="course-info__courses-text">
+                          ماسک پاک کننده آرایش اینستا نوکس حجم 50 میل اورجینال
+                        </span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </main>
