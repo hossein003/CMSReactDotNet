@@ -28,71 +28,71 @@ export default function ArticleInfo() {
         ]}
       />
 
-      <main class="main">
-        <div class="container">
-          <div class="row">
-            <div class="col-8">
-              <div class="article">
-                <h1 class="article__title">
+      <main className="main">
+        <div className="container">
+          <div className="row">
+            <div className="col-8">
+              <div className="article">
+                <h1 className="article__title">
                   10 استایل جذاب و مدرن برای روز های عید نوروز
                 </h1>
-                <div class="article__header">
-                  <div class="article-header__category article-header__item">
-                    <i class="far fa-folder article-header__icon"></i>
-                    <a href="#" class="article-header__text">
+                <div className="article__header">
+                  <div className="article-header__category article-header__item">
+                    <i className="far fa-folder article-header__icon"></i>
+                    <a href="#" className="article-header__text">
                       {" "}
                       استایل
                     </a>
                   </div>
-                  <div class="article-header__category article-header__item">
-                    <i class="far fa-user article-header__icon"></i>
-                    <span class="article-header__text">
+                  <div className="article-header__category article-header__item">
+                    <i className="far fa-user article-header__icon"></i>
+                    <span className="article-header__text">
                       {" "}
                       ارسال شده توسط حسین
                     </span>
                   </div>
-                  <div class="article-header__category article-header__item">
-                    <i class="far fa-clock article-header__icon"></i>
-                    <span class="article-header__text"> 1402/12/12</span>
+                  <div className="article-header__category article-header__item">
+                    <i className="far fa-clock article-header__icon"></i>
+                    <span className="article-header__text"> 1402/12/12</span>
                   </div>
-                  <div class="article-header__category article-header__item">
-                    <i class="far fa-eye article-header__icon"></i>
-                    <span class="article-header__text"> 2.14k بازدید</span>
+                  <div className="article-header__category article-header__item">
+                    <i className="far fa-eye article-header__icon"></i>
+                    <span className="article-header__text"> 2.14k بازدید</span>
                   </div>
                 </div>
                 <img
                   src="/images/blog/3-style.jpg"
                   alt="Article Cover"
-                  class="article__banner"
+                  className="article__banner"
                 />
 
-                <div class="article__score">
-                  <div class="article__score-icons">
+                <div className="article__score">
+                  <div className="article__score-icons">
                     <img
                       src="/images/svgs/star_fill.svg"
-                      class="article__score-icon"
+                      className="article__score-icon"
                     />
                     <img
                       src="/images/svgs/star_fill.svg"
-                      class="article__score-icon"
+                      className="article__score-icon"
                     />
                     <img
                       src="/images/svgs/star_fill.svg"
-                      class="article__score-icon"
+                      className="article__score-icon"
                     />
                     <img
                       src="/images/svgs/star_fill.svg"
-                      class="article__score-icon"
+                      className="article__score-icon"
                     />
                     <img
                       src="/images/svgs/star.svg"
-                      class="article__score-icon"
+                      className="article__score-icon"
                     />
                   </div>
-                  <span class="article__score-text">4.2/5 - (5 امتیاز)</span>
+                  <span className="article__score-text">4.2/5 - (5 امتیاز)</span>
                 </div>
 
-                <p class="article__paragraph paragraph">
+                <p className="article__paragraph paragraph">
                   لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
                   استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و
                   مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی
@@ -107,23 +107,23 @@ export default function ArticleInfo() {
                   موجود طراحی اساسا مورد استفاده قرار گیرد.
                 </p>
 
-                <div class="article-read">
-                  <span class="article-read__title">
+                <div className="article-read">
+                  <span className="article-read__title">
                     آنچه در این مقاله خواهید خواند
                   </span>
-                  <ul class="article-read__list">
-                    <li class="article-read__item">
-                      <a href="#" class="article-read__link">
+                  <ul className="article-read__list">
+                    <li className="article-read__item">
+                      <a href="#" className="article-read__link">
                       لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ
                       </a>
                     </li>
-                    <li class="article-read__item">
-                      <a href="#" class="article-read__link">
+                    <li className="article-read__item">
+                      <a href="#" className="article-read__link">
                       لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ
                       </a>
                     </li>
-                    <li class="article-read__item">
-                      <a href="#" class="article-read__link">
+                    <li className="article-read__item">
+                      <a href="#" className="article-read__link">
                       لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ
                       </a>
                     </li>
@@ -133,13 +133,13 @@ export default function ArticleInfo() {
                 <img
                   src="/images/blog/casual-style.jpg"
                   alt="Article Image"
-                  class="article__seconadary-banner"
+                  className="article__seconadary-banner"
                 />
-                <div class="article-section">
-                  <h2 class="article-section__title">
+                <div className="article-section">
+                  <h2 className="article-section__title">
                     لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ
                   </h2>
-                  <p class="paragraph article-section__text">
+                  <p className="paragraph article-section__text">
                     لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و
                     با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه
                     و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی
@@ -156,14 +156,14 @@ export default function ArticleInfo() {
                   <img
                     src="/images/blog/women-style.jpg"
                     alt="article body img"
-                    class="article-section__img"
+                    className="article-section__img"
                   />
                 </div>
-                <div class="article-section">
-                  <h2 class="article-section__title">
+                <div className="article-section">
+                  <h2 className="article-section__title">
                     لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ
                   </h2>
-                  <p class="paragraph article-section__text">
+                  <p className="paragraph article-section__text">
                     لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و
                     با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه
                     و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی
@@ -178,11 +178,11 @@ export default function ArticleInfo() {
                     موجود طراحی اساسا مورد استفاده قرار گیرد.
                   </p>
                 </div>
-                <div class="article-section">
-                  <h2 class="article-section__title">
+                <div className="article-section">
+                  <h2 className="article-section__title">
                     لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ
                   </h2>
-                  <p class="paragraph article-section__text">
+                  <p className="paragraph article-section__text">
                     لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و
                     با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه
                     و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی
@@ -199,43 +199,43 @@ export default function ArticleInfo() {
                   <img
                     src="/images/blog/4-style.jpg"
                     alt="article body img"
-                    class="article-section__img"
+                    className="article-section__img"
                   />
                 </div>
 
-                <div class="article-social-media">
-                  <span class="article-social-media__text">اشتراک گذاری :</span>
-                  <a href="#" class="article-social-media__link">
-                    <i class="fab fa-telegram-plane article-social-media__icon"></i>
+                <div className="article-social-media">
+                  <span className="article-social-media__text">اشتراک گذاری :</span>
+                  <a href="#" className="article-social-media__link">
+                    <i className="fab fa-telegram-plane article-social-media__icon"></i>
                   </a>
-                  <a href="#" class="article-social-media__link">
-                    <i class="fab fa-twitter article-social-media__icon"></i>
+                  <a href="#" className="article-social-media__link">
+                    <i className="fab fa-twitter article-social-media__icon"></i>
                   </a>
-                  <a href="#" class="article-social-media__link">
-                    <i class="fab fa-facebook-f article-social-media__icon"></i>
+                  <a href="#" className="article-social-media__link">
+                    <i className="fab fa-facebook-f article-social-media__icon"></i>
                   </a>
                 </div>
               </div>
 
-              <div class="suggestion-articles">
-                <div class="row">
-                  <div class="col-6">
-                    <div class="suggestion-articles__right suggestion-articles__content">
-                      <a href="#" class="suggestion-articles__icon-link">
-                        <i class="fas fa-arrow-right suggestion-articles__icon"></i>
+              <div className="suggestion-articles">
+                <div className="row">
+                  <div className="col-6">
+                    <div className="suggestion-articles__right suggestion-articles__content">
+                      <a href="#" className="suggestion-articles__icon-link">
+                        <i className="fas fa-arrow-right suggestion-articles__icon"></i>
                       </a>
-                      <a href="#" class="suggestion-articles__link">
+                      <a href="#" className="suggestion-articles__link">
                         سریع ترین و بهترین راه یادگیری جاوا اسکریپت چیست؟ |
                         تجربه برنامه نویسان
                       </a>
                     </div>
                   </div>
-                  <div class="col-6">
-                    <div class="suggestion-articles__left suggestion-articles__content">
-                      <a href="#" class="suggestion-articles__icon-link">
-                        <i class="fas fa-arrow-left suggestion-articles__icon"></i>
+                  <div className="col-6">
+                    <div className="suggestion-articles__left suggestion-articles__content">
+                      <a href="#" className="suggestion-articles__icon-link">
+                        <i className="fas fa-arrow-left suggestion-articles__icon"></i>
                       </a>
-                      <a href="#" class="suggestion-articles__link">
+                      <a href="#" className="suggestion-articles__link">
                         سریع ترین و بهترین راه یادگیری جاوا اسکریپت چیست؟ |
                         تجربه برنامه نویسان
                       </a>
@@ -246,7 +246,7 @@ export default function ArticleInfo() {
 
               <CommentsTextArea />
             </div>
-            <div class="col-4"></div>
+            <div className="col-4"></div>
           </div>
         </div>
       </main>

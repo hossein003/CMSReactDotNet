@@ -4,8 +4,8 @@ import "./PresellProducts.css";
 
 export default function PopularProducts() {
   return (
-    <div class="popular">
-      <div class="container">
+    <div className="popular">
+      <div className="container">
         <SectionHeader
           title="محصولات در حال پیش فروش"
           desc="محصولاتی که در آینده خواهیم داشت"

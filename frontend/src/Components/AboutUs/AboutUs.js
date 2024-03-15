@@ -6,15 +6,15 @@ import AboutUsBox from "../AboutUsBox/AboutUsBox";
 export default function AboutUs() {
   return (
     <>
-      <div class="about-us">
-        <div class="container">
+      <div className="about-us">
+        <div className="container">
           <SectionHeader
             title=" ویژگی های مارکت لند چیه ؟ "
             desc="اولویت مارکت لند رضایت مشتریاش هست بخاطر همین ...."
           />
 
-          <div class="container">
-            <div class="row">
+          <div className="container">
+            <div className="row">
                 <AboutUsBox 
                 title="اجازه فروش"
                 desc=" به هر فروشگاهی رو نمیده چون اعتبار و اعتماد براش مهمه !"

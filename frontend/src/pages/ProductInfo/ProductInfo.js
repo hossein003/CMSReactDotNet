@@ -35,17 +35,17 @@ export default function ProductInfo() {
       {/* ---------------------------------------------------------------- */}
       {/* Start Product Main Info  */}
 
-      <section class="course-info">
-        <div class="container">
-          <div class="row">
-            <div class="col-6">
-              <a href="#" class="course-info__link">
+      <section className="course-info">
+        <div className="container">
+          <div className="row">
+            <div className="col-6">
+              <a href="#" className="course-info__link">
                 زیبایی و سلامت
               </a>
-              <h1 class="course-info__title">
+              <h1 className="course-info__title">
                 کرم مراقبت از پوست زنان Night-Cosmetics
               </h1>
-              <p class="course-info__text">
+              <p className="course-info__text">
                 کرم شب در واقع برای حفظ جوانی و حالت ارتجاعی پوست و جلوگیری از
                 پیری زودرس آن طراحی شده است.
                 <br /> کرم شب بیوتی اسلیپ ایت کازمتیکس برای انواع پوست نرمال،
@@ -55,24 +55,24 @@ export default function ProductInfo() {
                 یک خواب، پوست را هیدراته، صاف و لطیف می کند و همچنین حاوی
                 سرامیدها، اسید هیالورونیک و رایحه تسکین دهنده اسطوخودوس می باشد.
               </p>
-              <div class="course-info__social-media">
-                <a href="#" class="course-info__social-media-item">
-                  <i class="fab fa-telegram-plane course-info__icon"></i>
+              <div className="course-info__social-media">
+                <a href="#" className="course-info__social-media-item">
+                  <i className="fab fa-telegram-plane course-info__icon"></i>
                 </a>
-                <a href="#" class="course-info__social-media-item">
-                  <i class="fab fa-twitter course-info__icon"></i>
+                <a href="#" className="course-info__social-media-item">
+                  <i className="fab fa-twitter course-info__icon"></i>
                 </a>
-                <a href="#" class="course-info__social-media-item">
-                  <i class="fab fa-facebook-f course-info__icon"></i>
+                <a href="#" className="course-info__social-media-item">
+                  <i className="fab fa-facebook-f course-info__icon"></i>
                 </a>
               </div>
             </div>
 
-            <div class="col-6">
+            <div className="col-6">
               <video
                 src=""
                 poster="/images/products/NightCosmetics.jpg"
-                class="course-info__video"
+                className="course-info__video"
                 controls
               ></video>
             </div>
@@ -84,14 +84,14 @@ export default function ProductInfo() {
       {/* ---------------------------------------------------------------- */}
       {/* Start Main Info Section */}
 
-      <main class="main">
-        <div class="container">
-          <div class="row">
-            <div class="col-8">
-              <div class="course">
+      <main className="main">
+        <div className="container">
+          <div className="row">
+            <div className="col-8">
+              <div className="course">
                 {/*  Start Product Boxes */}
-                <div class="course-boxes">
-                  <div class="row">
+                <div className="course-boxes">
+                  <div className="row">
                     <ProductDetailBox
                       title="موجودی انبار"
                       text="2 عدد"
@@ -126,16 +126,16 @@ export default function ProductInfo() {
                 </div>
                 {/*  Fisnish poduct Boxes */}
                 {/* <!-- Start Course Progress --> */}
-                <div class="course-progress">
-                  <div class="course-progress__header">
-                    <i class="fas fa-chart-line course-progress__icon"></i>
-                    <span class="course-progress__title">
+                <div className="course-progress">
+                  <div className="course-progress__header">
+                    <i className="fas fa-chart-line course-progress__icon"></i>
+                    <span className="course-progress__title">
                       درصد موجودی انبار: 2%
                     </span>
                   </div>
-                  <div class="progress course-progress__bar">
+                  <div className="progress course-progress__bar">
                     <div
-                      class="progress-bar progress-bar-striped progress-bar-animated"
+                      className="progress-bar progress-bar-striped progress-bar-animated"
                       role="progressbar"
                       aria-label="Animated striped example"
                       aria-valuenow="2"
@@ -149,17 +149,17 @@ export default function ProductInfo() {
 
                 {/* <!-- Start Introduction --> */}
 
-                <div class="introduction">
-                  <div class="introduction__item">
-                    <span class="introduction__title title">
+                <div className="introduction">
+                  <div className="introduction__item">
+                    <span className="introduction__title title">
                       کرم مراقبت از پوست زنان Night-Cosmetics &nbsp;
                     </span>
                     <img
                       src="/images/products/NightCosmetics.jpg"
                       alt="course info image"
-                      class="introduction__img img-fluid"
+                      className="introduction__img img-fluid"
                     />
-                    <p class="introduction__text">
+                    <p className="introduction__text">
                       لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ
                       و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه
                       روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای
@@ -174,19 +174,19 @@ export default function ProductInfo() {
                       سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده
                       قرار گیرد.
                     </p>
-                    <p class="introduction__text"></p>
+                    <p className="introduction__text"></p>
                   </div>
-                  <div class="introduction__item">
-                    <span class="introduction__title title">
+                  <div className="introduction__item">
+                    <span className="introduction__title title">
                       لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ
                       &nbsp;
                     </span>
                     <img
                       src="/images/products/testcream.jpg"
                       alt="course info image"
-                      class="introduction__img img-fluid"
+                      className="introduction__img img-fluid"
                     />
-                    <p class="introduction__text">
+                    <p className="introduction__text">
                       لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ
                       و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه
                       روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای
@@ -197,7 +197,7 @@ export default function ProductInfo() {
                       ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی
                       ایجاد کرد
                     </p>
-                    <p class="introduction__text">
+                    <p className="introduction__text">
                       لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ
                       و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه
                       روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای
@@ -208,7 +208,7 @@ export default function ProductInfo() {
                       ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی
                       ایجاد کرد
                     </p>
-                    <p class="introduction__text">
+                    <p className="introduction__text">
                       لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ
                       و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه
                       روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای
@@ -220,8 +220,8 @@ export default function ProductInfo() {
                       ایجاد کرد
                     </p>
                   </div>
-                  <div class="introduction__btns">
-                    <a href="#" class="introduction__btns-item">
+                  <div className="introduction__btns">
+                    <a href="#" className="introduction__btns-item">
                       دانلود مشخصات محصول
                     </a>
                   </div>
@@ -234,44 +234,44 @@ export default function ProductInfo() {
                         معرفی محصول
                       </Accordion.Header>
                       <Accordion.Body className="accordion-body introduction__accordion-body">
-                          <div class="introduction__accordion-right">
-                            <span class="introduction__accordion-count">1</span>
+                          <div className="introduction__accordion-right">
+                            <span className="introduction__accordion-count">1</span>
                             &nbsp;
-                            <p class="introduction__accordion-link">
+                            <p className="introduction__accordion-link">
                               ماندگاری کرم
                             </p>
                           </div>
-                          <div class="introduction__accordion-left">
-                            <span class="introduction__accordion-time">
+                          <div className="introduction__accordion-left">
+                            <span className="introduction__accordion-time">
                               متوسط 4 ساعت
                             </span>
                           </div>
                         </Accordion.Body>
                         <Accordion.Body className="introduction__accordion-body">
-                          <div class="introduction__accordion-right">
-                            <span class="introduction__accordion-count">2</span>
+                          <div className="introduction__accordion-right">
+                            <span className="introduction__accordion-count">2</span>
                             &nbsp;
-                            <p class="introduction__accordion-link">
+                            <p className="introduction__accordion-link">
                               تولید کننده
                             </p>
                           </div>
-                          <div class="introduction__accordion-left">
-                            <span class="introduction__accordion-time">
+                          <div className="introduction__accordion-left">
+                            <span className="introduction__accordion-time">
                               شرکت کرم سازی کرج
                             </span>
                           </div>
                         </Accordion.Body>
                         <Accordion.Body className="accordion-body introduction__accordion-body">
 
-                          <div class="introduction__accordion-right">
-                            <span class="introduction__accordion-count">3</span>
+                          <div className="introduction__accordion-right">
+                            <span className="introduction__accordion-count">3</span>
                             &nbsp;
-                            <p class="introduction__accordion-link">
+                            <p className="introduction__accordion-link">
                               موارد مصرف
                             </p>
                           </div>
-                          <div class="introduction__accordion-left">
-                            <span class="introduction__accordion-time">
+                          <div className="introduction__accordion-left">
+                            <span className="introduction__accordion-time">
                               رطوبت پوست
                             </span>
                           </div>
@@ -284,29 +284,29 @@ export default function ProductInfo() {
 
                 {/* <!-- Start Shop Details --> */}
 
-                <div class="techer-details">
-                  <div class="techer-details__header">
-                    <div class="techer-details__header-right">
+                <div className="techer-details">
+                  <div className="techer-details__header">
+                    <div className="techer-details__header-right">
                       <img
                         src="/images/info/shop.png"
                         alt="Teacher Profile"
-                        class="techer-details__header-img"
+                        className="techer-details__header-img"
                       />
-                      <div class="techer-details__header-titles">
-                        <a href="#" class="techer-details__header-link">
+                      <div className="techer-details__header-titles">
+                        <a href="#" className="techer-details__header-link">
                           سیسمونی تویین بیبی
                         </a>
-                        <span class="techer-details__header-skill">
+                        <span className="techer-details__header-skill">
                           فروشگاه همواره تخفیف لوازم بهداشتی کودک
                         </span>
                       </div>
                     </div>
-                    <div class="techer-details__header-left">
-                      <i class="fas fa-shop techer-details__header-icon"></i>
-                      <span class="techer-details__header-name">فروشگاه</span>
+                    <div className="techer-details__header-left">
+                      <i className="fas fa-shop techer-details__header-icon"></i>
+                      <span className="techer-details__header-name">فروشگاه</span>
                     </div>
                   </div>
-                  <p class="techer-details__footer">
+                  <p className="techer-details__footer">
                     آدرس: استان: تهران، شهر: تهران، علامه قزوینی، نرسیده به
                     میدان موج، مجتمع تجاری آفتاب، طبقه اول، واحد ۱۵
                   </p>
@@ -318,55 +318,55 @@ export default function ProductInfo() {
               </div>
             </div>
 
-            <div class="col-4">
-              <div class="courses-info">
-                <div class="course-info">
-                  <div class="course-info__register">
-                    <span class="course-info__register-title">
-                      <i class="fas fa-cart-plus course-info__register-icon"></i>
+            <div className="col-4">
+              <div className="courses-info">
+                <div className="course-info">
+                  <div className="course-info__register">
+                    <span className="course-info__register-title">
+                      <i className="fas fa-cart-plus course-info__register-icon"></i>
                       &nbsp;به سبد خرید افزوده شده
                     </span>
                   </div>
                 </div>
-                <div class="course-info">
-                  <div class="course-info__total">
-                    <div class="course-info__top">
-                      <div class="course-info__total-sale">
-                        <i class="fas fa-user-group course-info__total-sale-icon"></i>
-                        <span class="course-info__total-sale-text">
+                <div className="course-info">
+                  <div className="course-info__total">
+                    <div className="course-info__top">
+                      <div className="course-info__total-sale">
+                        <i className="fas fa-user-group course-info__total-sale-icon"></i>
+                        <span className="course-info__total-sale-text">
                           &nbsp;تعداد خریدار :&nbsp;
                         </span>
-                        <span class="course-info__total-sale-number">178</span>
+                        <span className="course-info__total-sale-number">178</span>
                       </div>
                     </div>
-                    <div class="course-info__bottom">
-                      <div class="course-info__total-comment">
-                        <i class="far fa-comments course-info__total-comment-icon"></i>
-                        <span class="course-info__total-comment-text">
+                    <div className="course-info__bottom">
+                      <div className="course-info__total-comment">
+                        <i className="far fa-comments course-info__total-comment-icon"></i>
+                        <span className="course-info__total-comment-text">
                           67 دیدگاه
                         </span>
                       </div>
-                      <div class="course-info__total-view">
-                        <i class="far fa-eye course-info__total-view-icon"></i>
-                        <span class="course-info__total-view-text">
+                      <div className="course-info__total-view">
+                        <i className="far fa-eye course-info__total-view-icon"></i>
+                        <span className="course-info__total-view-text">
                           14,234 بازدید
                         </span>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="course-info">
-                  <div class="course-info__header-short-url">
-                    <i class="fas fa-link course-info__short-url-icon"></i>
-                    <span class="course-info__short-url-text">لینک کوتاه</span>
+                <div className="course-info">
+                  <div className="course-info__header-short-url">
+                    <i className="fas fa-link course-info__short-url-icon"></i>
+                    <span className="course-info__short-url-text">لینک کوتاه</span>
                   </div>
-                  <span class="course-info__short-url">
+                  <span className="course-info__short-url">
                     https://marketland.ir/?p=117472
                   </span>
                 </div>
-                <div class="course-info">
-                  <span class="course-info__topic-title">مشخصات محصول</span>
-                  <span class="course-info__topic-text">
+                <div className="course-info">
+                  <span className="course-info__topic-title">مشخصات محصول</span>
+                  <span className="course-info__topic-text">
                     برای دانلود مشخصات محصول روی کلمه
                     <a href="#" style={{ color: "blue", FontWeight: "bold" }}>
                       &nbsp;لینک&nbsp;
@@ -374,53 +374,53 @@ export default function ProductInfo() {
                     کلیک کنید
                   </span>
                 </div>
-                <div class="course-info">
-                  <span class="course-info__courses-title">محصولات مرتبط</span>
-                  <ul class="course-info__courses-list">
-                    <li class="course-info__courses-list-item">
-                      <a href="#" class="course-info__courses-link">
+                <div className="course-info">
+                  <span className="course-info__courses-title">محصولات مرتبط</span>
+                  <ul className="course-info__courses-list">
+                    <li className="course-info__courses-list-item">
+                      <a href="#" className="course-info__courses-link">
                         <img
                           src="/images/products/bababomb-cream.jpg"
                           alt="Course Cover"
-                          class="course-info__courses-img"
+                          className="course-info__courses-img"
                         />
-                        <span class="course-info__courses-text">
+                        <span className="course-info__courses-text">
                           کرم بابا بمب تارت
                         </span>
                       </a>
                     </li>
-                    <li class="course-info__courses-list-item">
-                      <a href="#" class="course-info__courses-link">
+                    <li className="course-info__courses-list-item">
+                      <a href="#" className="course-info__courses-link">
                         <img
                           src="/images/products/beautysleep-cream.jpg"
                           alt="Course Cover"
-                          class="course-info__courses-img"
+                          className="course-info__courses-img"
                         />
-                        <span class="course-info__courses-text">
+                        <span className="course-info__courses-text">
                           کرم شب بیوتی اسلیپ ایت کازمتیکس
                         </span>
                       </a>
                     </li>
-                    <li class="course-info__courses-list-item">
-                      <a href="#" class="course-info__courses-link">
+                    <li className="course-info__courses-list-item">
+                      <a href="#" className="course-info__courses-link">
                         <img
                           src="/images/products/vichy-cream.jpg"
                           alt="Course Cover"
-                          class="course-info__courses-img"
+                          className="course-info__courses-img"
                         />
-                        <span class="course-info__courses-text">
+                        <span className="course-info__courses-text">
                           آبرسان و مرطوب کننده فیتوسولوشن نورمادرم ویشی
                         </span>
                       </a>
                     </li>
-                    <li class="course-info__courses-list-item">
-                      <a href="#" class="course-info__courses-link">
+                    <li className="course-info__courses-list-item">
+                      <a href="#" className="course-info__courses-link">
                         <img
                           src="/images/products/nuxe-cream.jpg"
                           alt="Course Cover"
-                          class="course-info__courses-img"
+                          className="course-info__courses-img"
                         />
-                        <span class="course-info__courses-text">
+                        <span className="course-info__courses-text">
                           ماسک پاک کننده آرایش اینستا نوکس حجم 50 میل اورجینال
                         </span>
                       </a>

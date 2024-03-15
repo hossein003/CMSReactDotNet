@@ -5,8 +5,8 @@ import ProductBox from "../ProductBox/ProductBox";
 export default function LastProducts() {
   return (
     <>
-      <div class="courses">
-        <div class="container">
+      <div className="courses">
+        <div className="container">
           <SectionHeader
             title="جدیدترین محصولات &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
             desc="محصولاتی با کیفیت تضمین شده"
@@ -14,9 +14,9 @@ export default function LastProducts() {
             btnHref="products"
           />
 
-          <div class="courses-content">
-            <div class="container">
-              <div class="row">
+          <div className="courses-content">
+            <div className="container">
+              <div className="row">
                   <ProductBox />
                   <ProductBox />
                   <ProductBox />

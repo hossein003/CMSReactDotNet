@@ -4,8 +4,8 @@ import "./PopularProducts.css";
 
 export default function PopularProducts() {
   return (
-    <div class="popular">
-      <div class="container">
+    <div className="popular">
+      <div className="container">
         <SectionHeader title="محصولات  پر فروش" desc="محصولات پرفروش این ماه" />
       </div>
     </div>

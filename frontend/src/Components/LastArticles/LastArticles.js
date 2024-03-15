@@ -4,16 +4,16 @@ import SectionHeader from "../SectionHeader/SectionHeader";
 import ArticleBox from "../ArticleBox/ArticleBox";
 export default function LastArticles() {
   return (
-    <section class="articles">
-      <div class="container">
+    <section className="articles">
+      <div className="container">
         <SectionHeader
           title="جدید ترین مقاله ها"
           desc="مقاله های تازه منتشر شده"
           btnTitle="تمامی مقاله ها"
         />
 
-        <div class="articles__content">
-          <div class="row">
+        <div className="articles__content">
+          <div className="row">
             <ArticleBox 
             title="استایل آبی | چگونه یک استایل آبی خوش پوش داشته باشیم ؟"
             cover="images/blog/3.jpg"
