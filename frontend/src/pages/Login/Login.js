@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Footer from "../../Components/Footer/Footer";
 import Button from "../../Components/Form/Button";
@@ -7,7 +7,8 @@ import Navbar from "../../Components/Navbar/Navbar";
 import Topbar from "../../Components/Topbar/Topbar";
 import { useForm } from "../../hooks/useForm";
 import AuthContext from "../../context/authContext";
-import swal from 'sweetalert'
+import swal from "sweetalert";
+import ReCAPTCHA from "react-google-recaptcha";
 
 import {
   requiredValidator,
@@ -19,8 +20,9 @@ import {
 import "./Login.css";
 
 export default function Login() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const authContext = useContext(AuthContext);
+  const [isGoogleReCaptchaVerify,setIsGoogleReCaptchaVerify] = useState(true)
 
   const [formState, onInputHandler] = useForm(
     {
@@ -35,9 +37,6 @@ export default function Login() {
     },
     false
   );
-
-
-  console.log(formState);
 
   const userLogin = (event) => {
     event.preventDefault();
@@ -63,24 +62,27 @@ export default function Login() {
       })
       .then((result) => {
         swal({
-          title:'خوشش آمدید',
-          icon : 'success',
-          buttons:'ورود به پنل'
-        }).then(value =>{
-          navigate('/')
-        })
-        authContext.login({}, result.accessToken)
+          title: "خوشش آمدید",
+          icon: "success",
+          buttons: "ورود به پنل",
+        }).then((value) => {
+          navigate("/");
+        });
+        authContext.login({}, result.accessToken);
       })
       .catch((err) => {
         console.log(`err => `, err);
         swal({
-          title:'کاربری با این اطلاعات وجود ندارد',
-          icon : 'error',
-          buttons:'تلاش دوباره'
-        })
+          title: "کاربری با این اطلاعات وجود ندارد",
+          icon: "error",
+          buttons: "تلاش دوباره",
+        });
       });
-    console.log(userData);
   };
+
+  const onChangeHandler = () => {
+    setIsGoogleReCaptchaVerify(false)
+  }
 
   return (
     <>
@@ -134,15 +136,18 @@ export default function Login() {
 
               <i className="login-form__password-icon fa fa-lock-open"></i>
             </div>
+            <div className="login-form__password recaptcha-parent">
+              <ReCAPTCHA sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" onChange={onChangeHandler} />
+            </div>
             <Button
               className={`login-form__btn ${
-                formState.isFormValid
+                (formState.isFormValid && !isGoogleReCaptchaVerify)
                   ? "login-form__btn-success"
                   : "login-form__btn-error"
               }`}
               type="submit"
               onClick={userLogin}
-              disabled={!formState.isFormValid}
+              disabled={(!formState.isFormValid || isGoogleReCaptchaVerify)}
             >
               <i className="login-form__btn-icon fas fa-sign-out-alt"></i>
               <span className="login-form__btn-text">ورود</span>

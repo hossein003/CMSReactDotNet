@@ -1,11 +1,14 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Footer from "../../Components/Footer/Footer";
 import Button from "../../Components/Form/Button";
 import Input from "../../Components/Form/Input";
 import Navbar from "../../Components/Navbar/Navbar";
 import Topbar from "../../Components/Topbar/Topbar";
 import { useForm } from "../../hooks/useForm";
+import swal from "sweetalert";
+import ReCAPTCHA from "react-google-recaptcha";
+
 import {
   requiredValidator,
   minValidator,
@@ -19,7 +22,9 @@ import "./Register.css";
 export default function Register() {
 
   const authContext = useContext(AuthContext)
-  console.log(authContext);
+  const navigate = useNavigate();
+  const [isGoogleReCaptchaVerify,setIsGoogleReCaptchaVerify] = useState(true)
+
 
   const [formState, onInputHandler] = useForm(
     {
@@ -61,14 +66,36 @@ export default function Register() {
       },
       body: JSON.stringify(newUserInfos),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          return res.text().then((text) => {
+            throw new Error(text);
+          });
+        } else {
+          return res.json();
+        }
+      })
       .then((result) => {
-        console.log(result);
+        swal({
+          title: "ثبت نام با موفقیت انجام شد",
+          icon: "success",
+          buttons: "صفحه ورود",
+        }).then((value) => {
+          navigate("/");
+        });
         authContext.login(result.user, result.accessToken)
+      }).catch((err) => {
+        console.log(`err => `, err);
+        swal({
+          title: "مشکلی در روند ثبت نام به وجود آمده لطفا مجددا تلاش کنید",
+          icon: "error",
+          buttons: "تلاش دوباره",
+        });
       });
-
-    console.log("User Register");
   };
+  const onChangeHandler = () => {
+    setIsGoogleReCaptchaVerify(false)
+  }
 
   return (
     <>
@@ -154,15 +181,18 @@ export default function Register() {
               />
               <i className="login-form__password-icon fa fa-lock-open"></i>
             </div>
+            <div className="login-form__password recaptcha-parent">
+              <ReCAPTCHA sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" onChange={onChangeHandler} />
+            </div>
             <Button
               className={`login-form__btn ${
-                formState.isFormValid
+                (formState.isFormValid && !isGoogleReCaptchaVerify)
                   ? "login-form__btn-success"
                   : "login-form__btn-error"
               }`}
               type="submit"
               onClick={registerNewUser}
-              disabled={!formState.isFormValid}
+              disabled={!formState.isFormValid ||isGoogleReCaptchaVerify}
             >
               <i className="login-form__btn-icon fa fa-user-plus"></i>
               <span className="login-form__btn-text">عضویت</span>
