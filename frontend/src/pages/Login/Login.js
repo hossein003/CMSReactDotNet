@@ -1,11 +1,13 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Footer from "../../Components/Footer/Footer";
 import Button from "../../Components/Form/Button";
 import Input from "../../Components/Form/Input";
 import Navbar from "../../Components/Navbar/Navbar";
 import Topbar from "../../Components/Topbar/Topbar";
 import { useForm } from "../../hooks/useForm";
+import AuthContext from "../../context/authContext";
+import swal from 'sweetalert'
 
 import {
   requiredValidator,
@@ -17,6 +19,9 @@ import {
 import "./Login.css";
 
 export default function Login() {
+  const navigate = useNavigate()
+  const authContext = useContext(AuthContext);
+
   const [formState, onInputHandler] = useForm(
     {
       username: {
@@ -31,11 +36,50 @@ export default function Login() {
     false
   );
 
+
   console.log(formState);
 
   const userLogin = (event) => {
     event.preventDefault();
-    console.log("User Login");
+    const userData = {
+      identifier: formState.inputs.username.value,
+      password: formState.inputs.password.value,
+    };
+    fetch(`http://localhost:4000/v1/auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          return res.text().then((text) => {
+            throw new Error(text);
+          });
+        } else {
+          return res.json();
+        }
+      })
+      .then((result) => {
+        swal({
+          title:'خوشش آمدید',
+          icon : 'success',
+          buttons:'ورود به پنل'
+        }).then(value =>{
+          navigate('/')
+        })
+        authContext.login({}, result.accessToken)
+      })
+      .catch((err) => {
+        console.log(`err => `, err);
+        swal({
+          title:'کاربری با این اطلاعات وجود ندارد',
+          icon : 'error',
+          buttons:'تلاش دوباره'
+        })
+      });
+    console.log(userData);
   };
 
   return (
