@@ -1,12 +1,22 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import AuthContext from "../../context/authContext";
 
 import "./Navbar.css";
 
 export default function Navbar() {
+  const [allMenus, setAllMenus] = useState([]);
   const authContext = useContext(AuthContext);
   console.log(authContext);
+
+  useEffect(() => {
+    fetch(`http://localhost:4000/v1/menus`)
+      .then((res) => res.json())
+      .then((menus) => {
+        setAllMenus(menus);
+        console.log(menus);
+      });
+  }, []);
 
   return (
     <div className="main-header">
@@ -25,8 +35,34 @@ export default function Navbar() {
                   صفحه اصلی
                 </a>
               </li>
+              {allMenus.map((menu) => (
+                <li className="main-header__item">
+                  <Link to={menu.href} className="main-header__link">
+                    {menu.title}
+                    {menu.submenus.length !== 0 && (
+                      <>
+                        <i className="fas fa-angle-down main-header__link-icon"></i>
+                        <ul className="main-header__dropdown">
+                          {menu.submenus.map((submenu) => (
+                            <li className="main-header__dropdown-item">
+                              <Link
+                                to={submenu.href}
+                                className="main-header__dropdown-link"
+                              >
+                                {
+                                  submenu.title
+                                }
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </>
+                    )}
+                  </Link>
+                </li>
+              ))}
 
-              <li className="main-header__item">
+              {/* <li className="main-header__item">
                 <a href="#" className="main-header__link">
                   کالای دیجیتال
                   <i className="fas fa-angle-down main-header__link-icon"></i>
@@ -94,11 +130,6 @@ export default function Navbar() {
                   <ul className="main-header__dropdown">
                     <li className="main-header__dropdown-item">
                       <a href="#" className="main-header__dropdown-link">
-                        پوشاک مردانه
-                      </a>
-                    </li>
-                    <li className="main-header__dropdown-item">
-                      <a href="#" className="main-header__dropdown-link">
                         مراقبت پوست
                       </a>
                     </li>
@@ -147,7 +178,7 @@ export default function Navbar() {
                 <a href="#" className="main-header__link">
                   ارتباط با ما
                 </a>
-              </li>
+              </li> */}
             </ul>
           </div>
 

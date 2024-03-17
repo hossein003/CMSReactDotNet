@@ -1,14 +1,67 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Topbar from "../../Components/Topbar/Topbar";
 import Navbar from "../../Components/Navbar/Navbar";
 import Footer from "../../Components/Footer/Footer";
-import "./ProductInfo.css";
-import Accordion from "react-bootstrap/Accordion";
 import Breadcrumb from "../../Components/Breadcrumb/Breadcrumb";
 import ProductDetailBox from "../../Components/ProductDetailBox/ProductDetailBox";
 import CommentsTextArea from "../../Components/CommentsTextArea/CommentsTextArea";
+import Accordion from "react-bootstrap/Accordion";
+import { useParams } from "react-router-dom";
+import swal from "sweetalert"
+
+import "./ProductInfo.css";
 
 export default function ProductInfo() {
+  const [comments, setComments] = useState([]);
+  const [sessions, setSessions] = useState([]);
+  const [createdAt, setCreatedAt] = useState("");
+  const [updatedAt, setUpdatedAt] = useState("");
+  const [courseDetails, setCourseDetails] = useState({});
+  const { productName } = useParams();
+
+  useEffect(() => {
+    const localStorageData = JSON.parse(localStorage.getItem("user"));
+
+    fetch(`http://localhost:4000/v1/courses/${productName}`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${
+          localStorageData === null ? null : localStorageData.token
+        }`,
+      },
+    })
+      .then((res) => res.json())
+      .then((courseInfo) => {
+        setComments(courseInfo.comments);
+        setSessions(courseInfo.sessions);
+        setCourseDetails(courseInfo);
+        setCreatedAt(courseInfo.createdAt);
+        setUpdatedAt(courseInfo.updatedAt);
+        console.log(courseInfo);
+      });
+  }, []);
+
+  const submitComment = (newCommentBody) => {
+    const localStorageData = JSON.parse(localStorage.getItem("user"));
+    fetch(`http://localhost:4000/v1/comments`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${localStorageData.token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        body: newCommentBody,
+        courseShortName: productName,
+      }),
+    })
+      .then((res) => res.json())
+      .then((result) => swal({
+        title: "کامنت مورد نظر با موفقیت ثبت شد",
+        icon:'success',
+        buttons:'تایید'
+      }));
+  };
+
   return (
     <>
       <Topbar />
@@ -42,19 +95,8 @@ export default function ProductInfo() {
               <a href="#" className="course-info__link">
                 زیبایی و سلامت
               </a>
-              <h1 className="course-info__title">
-                کرم مراقبت از پوست زنان Night-Cosmetics
-              </h1>
-              <p className="course-info__text">
-                کرم شب در واقع برای حفظ جوانی و حالت ارتجاعی پوست و جلوگیری از
-                پیری زودرس آن طراحی شده است.
-                <br /> کرم شب بیوتی اسلیپ ایت کازمتیکس برای انواع پوست نرمال،
-                خشک، مختلط و چرب مناسب بوده و موجب آبرسانی و جوانی پوست می شود.
-                این مرطوب کننده در طول شب، زمانی که گردش سلولی به اوج خود می
-                رسد، برای تغذیه پوست از طریق لایه برداری عمل می کند. تنها پس از
-                یک خواب، پوست را هیدراته، صاف و لطیف می کند و همچنین حاوی
-                سرامیدها، اسید هیالورونیک و رایحه تسکین دهنده اسطوخودوس می باشد.
-              </p>
+              <h1 className="course-info__title">{courseDetails.name}</h1>
+              <p className="course-info__text">{courseDetails.description}</p>
               <div className="course-info__social-media">
                 <a href="#" className="course-info__social-media-item">
                   <i className="fab fa-telegram-plane course-info__icon"></i>
@@ -94,17 +136,21 @@ export default function ProductInfo() {
                   <div className="row">
                     <ProductDetailBox
                       title="موجودی انبار"
-                      text="2 عدد"
+                      text={
+                        courseDetails.isComplete === 1
+                          ? "10 عدد"
+                          : "محصول موجود نمیباشد"
+                      }
                       icon="warehouse"
                     />
                     <ProductDetailBox
-                      title="تاریخ انقضا"
-                      text="ندارد"
+                      title="تاریخ تولید"
+                      text={createdAt.slice(0, 10)}
                       icon="calendar-days"
                     />
                     <ProductDetailBox
                       title="آخرین بروزسانی موجودی انبار"
-                      text="4 روز پیش"
+                      text={updatedAt.slice(0, 10)}
                       icon="clock"
                     />
                     <ProductDetailBox
@@ -130,7 +176,8 @@ export default function ProductInfo() {
                   <div className="course-progress__header">
                     <i className="fas fa-chart-line course-progress__icon"></i>
                     <span className="course-progress__title">
-                      درصد موجودی انبار: 2%
+                      درصد موجودی انبار:{" "}
+                      {courseDetails.isComplete === 1 ? "10" : "0"}%
                     </span>
                   </div>
                   <div className="progress course-progress__bar">
@@ -141,7 +188,11 @@ export default function ProductInfo() {
                       aria-valuenow="2"
                       aria-valuemin="0"
                       aria-valuemax="100"
-                      style={{ width: "2%" }}
+                      style={{
+                        width: `${
+                          courseDetails.isComplete === 1 ? "10" : "0"
+                        }%`,
+                      }}
                     ></div>
                   </div>
                 </div>
@@ -233,49 +284,57 @@ export default function ProductInfo() {
                       >
                         معرفی محصول
                       </Accordion.Header>
-                      <Accordion.Body className="accordion-body introduction__accordion-body">
-                          <div className="introduction__accordion-right">
-                            <span className="introduction__accordion-count">1</span>
-                            &nbsp;
-                            <p className="introduction__accordion-link">
-                              ماندگاری کرم
-                            </p>
-                          </div>
-                          <div className="introduction__accordion-left">
-                            <span className="introduction__accordion-time">
-                              متوسط 4 ساعت
-                            </span>
-                          </div>
-                        </Accordion.Body>
-                        <Accordion.Body className="introduction__accordion-body">
-                          <div className="introduction__accordion-right">
-                            <span className="introduction__accordion-count">2</span>
-                            &nbsp;
-                            <p className="introduction__accordion-link">
-                              تولید کننده
-                            </p>
-                          </div>
-                          <div className="introduction__accordion-left">
-                            <span className="introduction__accordion-time">
-                              شرکت کرم سازی کرج
-                            </span>
-                          </div>
-                        </Accordion.Body>
+                      {sessions.map((session, index) => (
+                        // console.log(session)
                         <Accordion.Body className="accordion-body introduction__accordion-body">
-
                           <div className="introduction__accordion-right">
-                            <span className="introduction__accordion-count">3</span>
+                            <span className="introduction__accordion-count">
+                              {index + 1}
+                            </span>
                             &nbsp;
                             <p className="introduction__accordion-link">
-                              موارد مصرف
+                              {session.title}
                             </p>
                           </div>
                           <div className="introduction__accordion-left">
                             <span className="introduction__accordion-time">
-                              رطوبت پوست
+                              {session.time}
                             </span>
                           </div>
+                        </Accordion.Body>
+                      ))}
+                      {/* <Accordion.Body className="introduction__accordion-body">
+                        <div className="introduction__accordion-right">
+                          <span className="introduction__accordion-count">
+                            2
+                          </span>
+                          &nbsp;
+                          <p className="introduction__accordion-link">
+                            تولید کننده
+                          </p>
+                        </div>
+                        <div className="introduction__accordion-left">
+                          <span className="introduction__accordion-time">
+                            شرکت کرم سازی کرج
+                          </span>
+                        </div>
                       </Accordion.Body>
+                      <Accordion.Body className="accordion-body introduction__accordion-body">
+                        <div className="introduction__accordion-right">
+                          <span className="introduction__accordion-count">
+                            3
+                          </span>
+                          &nbsp;
+                          <p className="introduction__accordion-link">
+                            موارد مصرف
+                          </p>
+                        </div>
+                        <div className="introduction__accordion-left">
+                          <span className="introduction__accordion-time">
+                            رطوبت پوست
+                          </span>
+                        </div>
+                      </Accordion.Body> */}
                     </Accordion.Item>
                   </Accordion>
                 </div>
@@ -303,7 +362,9 @@ export default function ProductInfo() {
                     </div>
                     <div className="techer-details__header-left">
                       <i className="fas fa-shop techer-details__header-icon"></i>
-                      <span className="techer-details__header-name">فروشگاه</span>
+                      <span className="techer-details__header-name">
+                        فروشگاه
+                      </span>
                     </div>
                   </div>
                   <p className="techer-details__footer">
@@ -314,7 +375,10 @@ export default function ProductInfo() {
 
                 {/* <!-- Finish Shop Details --> */}
 
-                <CommentsTextArea />
+                <CommentsTextArea
+                  comments={comments}
+                  submitComment={submitComment}
+                />
               </div>
             </div>
 
@@ -322,10 +386,17 @@ export default function ProductInfo() {
               <div className="courses-info">
                 <div className="course-info">
                   <div className="course-info__register">
-                    <span className="course-info__register-title">
-                      <i className="fas fa-cart-plus course-info__register-icon"></i>
-                      &nbsp;به سبد خرید افزوده شده
-                    </span>
+                    {courseDetails.isUserRegisteredToThisCourse === true ? (
+                      <span className="course-info__register-title">
+                        <i className="fas fa-cart-plus course-info__register-icon"></i>
+                        &nbsp;به سبد خرید افزوده شده
+                      </span>
+                    ) : (
+                      <span className="course-info__register-title">
+                        <i className="fas fa-cart-plus course-info__register-icon"></i>
+                        &nbsp;افزودن به سبد خرید
+                      </span>
+                    )}
                   </div>
                 </div>
                 <div className="course-info">
@@ -336,7 +407,9 @@ export default function ProductInfo() {
                         <span className="course-info__total-sale-text">
                           &nbsp;تعداد خریدار :&nbsp;
                         </span>
-                        <span className="course-info__total-sale-number">178</span>
+                        <span className="course-info__total-sale-number">
+                          {courseDetails.courseStudentsCount}
+                        </span>
                       </div>
                     </div>
                     <div className="course-info__bottom">
@@ -358,7 +431,9 @@ export default function ProductInfo() {
                 <div className="course-info">
                   <div className="course-info__header-short-url">
                     <i className="fas fa-link course-info__short-url-icon"></i>
-                    <span className="course-info__short-url-text">لینک کوتاه</span>
+                    <span className="course-info__short-url-text">
+                      لینک کوتاه
+                    </span>
                   </div>
                   <span className="course-info__short-url">
                     https://marketland.ir/?p=117472
@@ -375,7 +450,9 @@ export default function ProductInfo() {
                   </span>
                 </div>
                 <div className="course-info">
-                  <span className="course-info__courses-title">محصولات مرتبط</span>
+                  <span className="course-info__courses-title">
+                    محصولات مرتبط
+                  </span>
                   <ul className="course-info__courses-list">
                     <li className="course-info__courses-list-item">
                       <a href="#" className="course-info__courses-link">
