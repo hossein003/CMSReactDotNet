@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import "./ProductBox.css";
 import CircleSpinner from "../CircleSpinner/CircleSpinner";
+import { Link } from "react-router-dom";
 
-export default function () {
+export default function (props) {
 
 
   const onImageLoaded = () => setIsImgShow(true);
@@ -11,10 +12,10 @@ export default function () {
   return (
     <div className="col-4">
       <div className="course-box">
-        <a href="#">
+        <Link to={`/product-info/${props.shortName}`}>
           <img
-            src="/images/products/NightCosmetics.jpg"
-            alt="Course img"
+            src={props.cover}
+            alt="Product img"
             className="course-box__img"
             onLoad={onImageLoaded}
           />
@@ -23,11 +24,11 @@ export default function () {
               <CircleSpinner />
             )
           }
-        </a>
+        </Link>
         <div className="course-box__main">
-          <a href="#" className="course-box__title">
-            مایع لباسشویی کودک یکسال به بالا
-          </a>
+          <Link to={`/product-info/${props.shortName}`} className="course-box__title">
+            {props.name}
+          </Link>
 
           <div className="course-box__rating-teacher">
             <div className="course-box__teacher">
@@ -70,15 +71,17 @@ export default function () {
               <i className="fas fa-users course-box__users-icon"></i>
               <span className="course-box__users-text">500</span>
             </div>
-            <span className="course-box__price">1,000,000</span>
+            <span className="course-box__price">
+              {props.price === 0 ? 'رایگان' : props.price.toLocaleString()}
+            </span>
           </div>
         </div>
 
         <div className="course-box__footer">
-          <a href="#" className="course-box__footer-link">
+          <Link to={`/product-info/${props.shortName}`} className="course-box__footer-link">
             مشاهده اطلاعات
             <i className="fas fa-arrow-left course-box__footer-icon"></i>
-          </a>
+          </Link>
         </div>
       </div>
     </div>
