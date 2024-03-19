@@ -17,7 +17,7 @@ export default function LastProducts() {
             title="جدیدترین محصولات &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
             desc="محصولاتی با کیفیت تضمین شده"
             btnTitle="نمایش تمامی محصولات"
-            btnHref="products"
+            btnHref="products/1"
           />
 
           <div className="courses-content">
