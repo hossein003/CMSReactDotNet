@@ -35,6 +35,7 @@
 .article__banner {
   margin-top: 4rem;
   width: 100%;
+  border-radius: 15px;
 }
 
 .article__score {
@@ -82,6 +83,7 @@
   display: block;
   margin: 0 auto;
   width: 100%;
+  border-radius: 10px;
 }
 
 .article-section {
@@ -103,6 +105,7 @@
   display: block;
   margin: 0 auto;
   width: 100%;
+  border-radius: 10px;
 }
 
 .article-social-media {

@@ -1,34 +1,35 @@
-import React from "react";
-import "./LastArticles.css";
-import SectionHeader from "../SectionHeader/SectionHeader";
+import React, { useEffect, useState } from "react";
 import ArticleBox from "../ArticleBox/ArticleBox";
+import SectionHeader from "./../SectionHeader/SectionHeader";
+
+import "./LastArticles.css";
+
 export default function LastArticles() {
+  const [articles, setArticles] = useState([]);
+
+  useEffect(() => {
+    fetch(`http://localhost:4000/v1/articles`)
+      .then((res) => res.json())
+      .then((allArticles) => {
+        setArticles(allArticles);
+      });
+  }, []);
+
   return (
     <section className="articles">
       <div className="container">
         <SectionHeader
-          title="جدید ترین مقاله ها"
-          desc="مقاله های تازه منتشر شده"
+          title="جدیدترین مقاله ها"
+          desc="پیش به سوی ارتقای دانش"
           btnTitle="تمامی مقاله ها"
+          btnHref='articles/1'
         />
 
         <div className="articles__content">
           <div className="row">
-            <ArticleBox 
-            title="استایل آبی | چگونه یک استایل آبی خوش پوش داشته باشیم ؟"
-            cover="images/blog/3.jpg"
-            desc="رنگ آبی علاوه بر خواصی که دارد کمک میکند به ما که تیپ بهتر و جذاب تری داشته باشیم و به نسبت ...."
-            />
-            <ArticleBox 
-            title="استایل زرد | چه ترکیب رنگ هایی کنار رنگ زرد مارا خوش تیپ تر نشان میدهد"
-            cover="images/blog/3.jpg"
-            desc="رنگ زرد را ما بیشتر با رنگ سبز مشاهده کرده ایم برای زیبایی که نشان دهنده طبیعت در کنار خورشید بوده ولی به واقع چه ترکیب رنگ های ..."
-            />
-            <ArticleBox 
-            title="استایل نارنجی | ترکیب رنگ های نارنجی را برای خوشتیپ شدن بشناسیم !"
-            cover="images/blog/3.jpg"
-            desc="برای ترکیب رنگ های نارنجی میتوان از چندین رنگ منحصر به فرد نامبرد از جمله زرد و قرمز و قهوه ای و ... که در کنار رنگ نارنجی ...."
-            />
+            {articles.slice(0, 3).map((article) => (
+              <ArticleBox {...article} key={article._id} />
+            ))}
           </div>
         </div>
       </div>

@@ -1,12 +1,57 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Topbar from "../../Components/Topbar/Topbar";
 import Navbar from "../../Components/Navbar/Navbar";
 import Footer from "../../Components/Footer/Footer";
 import Breadcrumb from "../../Components/Breadcrumb/Breadcrumb";
 import "./ArticleInfo.css";
 import CommentsTextArea from "../../Components/CommentsTextArea/CommentsTextArea";
+import { useParams } from "react-router-dom";
+import swal from "sweetalert";
 
 export default function ArticleInfo() {
+  const [comments, setComments] = useState([]);
+  const [articleDetails, setArticleDetails] = useState({})
+  const [articleCategory, setArticleCategory] = useState({})
+  const [articleCreator, setArticleCreator] = useState({})
+  const [articleCreateDate, setArticleCreateDate] = useState('')
+  const { articleName } = useParams();
+
+  useEffect(() => {
+    fetch(`http://localhost:4000/v1/articles/${articleName}`)
+      .then(res => res.json())
+      .then(articleInfo => {
+        console.log(articleInfo);
+        setArticleDetails(articleInfo)
+        setArticleCategory(articleInfo.categoryID)
+        setArticleCreator(articleInfo.creator)
+        setArticleCreateDate(articleInfo.createdAt)
+      })
+  }, [])
+
+  const submitComment = (newCommentBody) => {
+    const localStorageData = JSON.parse(localStorage.getItem("user"));
+
+    fetch(`http://localhost:4000/v1/comments`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorageData.token}`,
+      },
+      body: JSON.stringify({
+        body: newCommentBody,
+        courseShortName: articleName,
+      }),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        swal({
+          title: 'کامنت موردنظر با موفقیت ثبت شد',
+          icon: 'success',
+          buttons: 'تایید'
+        })
+      });
+  };
+
   return (
     <>
       <Topbar />
@@ -31,41 +76,48 @@ export default function ArticleInfo() {
       <main className="main">
         <div className="container">
           <div className="row">
-            <div className="col-8">
+          <div className="col-8">
               <div className="article">
                 <h1 className="article__title">
-                  10 استایل جذاب و مدرن برای روز های عید نوروز
+                 {
+                   articleDetails.title
+                 }
                 </h1>
                 <div className="article__header">
                   <div className="article-header__category article-header__item">
                     <i className="far fa-folder article-header__icon"></i>
                     <a href="#" className="article-header__text">
-                      {" "}
-                      استایل
+                      {
+                        articleCategory.title
+                      }
                     </a>
                   </div>
                   <div className="article-header__category article-header__item">
                     <i className="far fa-user article-header__icon"></i>
                     <span className="article-header__text">
+                      ارسال شده توسط 
                       {" "}
-                      ارسال شده توسط حسین
+                      {
+                        articleCreator.name
+                      }
                     </span>
                   </div>
                   <div className="article-header__category article-header__item">
-                    <i className="far fa-clock article-header__icon"></i>
-                    <span className="article-header__text"> 1402/12/12</span>
-                  </div>
-                  <div className="article-header__category article-header__item">
                     <i className="far fa-eye article-header__icon"></i>
-                    <span className="article-header__text"> 2.14k بازدید</span>
+                    <span className="article-header__text">
+                      تاریخ انتشار: 
+                      {" "}
+                      {
+                        articleCreateDate.slice(0, 10)
+                      }
+                    </span>
                   </div>
                 </div>
                 <img
-                  src="/images/blog/3-style.jpg"
+                  src="/images/blog/1.jpg"
                   alt="Article Cover"
                   className="article__banner"
                 />
-
                 <div className="article__score">
                   <div className="article__score-icons">
                     <img
@@ -93,18 +145,18 @@ export default function ArticleInfo() {
                 </div>
 
                 <p className="article__paragraph paragraph">
-                  لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
-                  استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و
-                  مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی
-                  تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای
-                  کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و
-                  آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم
-                  افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص
-                  طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این
-                  صورت می توان امید داشت که تمام و دشواری موجود در ارائه
-                  راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل
-                  حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای
-                  موجود طراحی اساسا مورد استفاده قرار گیرد.
+                  جاوا اسکریپت یکی از زبان‌های برنامه‌نویسی اصلی حوزه فرانت‌اند
+                  است که به واسطه فریم ورک‌های آن می‌توان انواع وب سایت‌ها،
+                  اپلیکیشن‌ها و وب اپلیکیشن‌ها را طراحی کرد. به طور کلی بعد از
+                  یادگیری html و css معمولاً باید آموزش جاوا اسکریپت را نیز فرا
+                  بگیرید. . چرا که این زبان تکمیل‌کننده html و css بوده و در
+                  چنین شرایطی موقعیت‌های شغلی بیشتر را در اختیار خواهید داشت و
+                  همچنین می‌توانید پروژه‌های گسترده‌تری را انجام دهید. در حال
+                  حاضر با وجود منابع رایگان موجود در وب شما به راحتی می‌توانید
+                  زبان جاوا اسکریپت را به صورت حرفه‌ای فرا بگیرید. به همین واسطه
+                  در ادامه مطلب قصد داریم سایت‌های شاخص آموزش این زبان
+                  برنامه‌نویسی در جهان را به شما معرفی کنیم و در آخر بگوییم که
+                  بهترین سایت آموزش جاوا اسکریپت کدام است.
                 </p>
 
                 <div className="article-read">
@@ -114,90 +166,81 @@ export default function ArticleInfo() {
                   <ul className="article-read__list">
                     <li className="article-read__item">
                       <a href="#" className="article-read__link">
-                      لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ
+                        معرفی بهترین سایت ‌های آموزش جاوا اسکریپت:
                       </a>
                     </li>
                     <li className="article-read__item">
                       <a href="#" className="article-read__link">
-                      لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ
+                        یک راه آسان‌تر، دوره‌ های جاوا اسکریپت آکادمی سبزلرن!
                       </a>
                     </li>
                     <li className="article-read__item">
                       <a href="#" className="article-read__link">
-                      لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ
+                        ثبت نام در دوره‌ های جاوا اسکریپت سبزلرن:
                       </a>
                     </li>
                   </ul>
                 </div>
 
                 <img
-                  src="/images/blog/casual-style.jpg"
+                  src="/images/blog/2.jpg"
                   alt="Article Image"
                   className="article__seconadary-banner"
                 />
                 <div className="article-section">
                   <h2 className="article-section__title">
-                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ
+                    معرفی بهترین سایت ‌های آموزش جاوا اسکریپت:
                   </h2>
                   <p className="paragraph article-section__text">
-                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و
-                    با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه
-                    و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی
-                    تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای
-                    کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و
-                    آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم
-                    افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص
-                    طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این
-                    صورت می توان امید داشت که تمام و دشواری موجود در ارائه
-                    راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل
-                    حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای
-                    موجود طراحی اساسا مورد استفاده قرار گیرد.
+                    توجه داشته باشید که تمام وب سایت‌هایی که به عنوان بهترین
+                    سایت آموزش جاوا اسکریپت در ادامه معرفی می‌کنیم، بین‌المللی
+                    هستند و منابع موجود در آن‌ها به زبان انگلیسی است. در نتیجه
+                    شما باید یا تسلط متوسط و حداقلی به زبان انگلیسی داشته باشید
+                    و یا اینکه با استفاده از گوگل ترنسلیت منابع موجود را ترجمه
+                    کرده و از آن‌ها استفاده کنید. به همین دلیل در انتهای محتوا
+                    به شما خواهیم گفت که راه آسان دیگری برای یادگیری زبان جاوا
+                    اسکریپت وجود دارد که شما بتوانید به واسطه آن به صورت رایگان
+                    و به زبان فارسی این زبان را یاد بگیرید.
                   </p>
                   <img
-                    src="/images/blog/women-style.jpg"
+                    src="/images/blog/4.png"
                     alt="article body img"
                     className="article-section__img"
                   />
                 </div>
                 <div className="article-section">
                   <h2 className="article-section__title">
-                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ
+                    معرفی بهترین سایت ‌های آموزش جاوا اسکریپت:
                   </h2>
                   <p className="paragraph article-section__text">
-                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و
-                    با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه
-                    و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی
-                    تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای
-                    کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و
-                    آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم
-                    افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص
-                    طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این
-                    صورت می توان امید داشت که تمام و دشواری موجود در ارائه
-                    راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل
-                    حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای
-                    موجود طراحی اساسا مورد استفاده قرار گیرد.
+                    توجه داشته باشید که تمام وب سایت‌هایی که به عنوان بهترین
+                    سایت آموزش جاوا اسکریپت در ادامه معرفی می‌کنیم، بین‌المللی
+                    هستند و منابع موجود در آن‌ها به زبان انگلیسی است. در نتیجه
+                    شما باید یا تسلط متوسط و حداقلی به زبان انگلیسی داشته باشید
+                    و یا اینکه با استفاده از گوگل ترنسلیت منابع موجود را ترجمه
+                    کرده و از آن‌ها استفاده کنید. به همین دلیل در انتهای محتوا
+                    به شما خواهیم گفت که راه آسان دیگری برای یادگیری زبان جاوا
+                    اسکریپت وجود دارد که شما بتوانید به واسطه آن به صورت رایگان
+                    و به زبان فارسی این زبان را یاد بگیرید.
                   </p>
                 </div>
                 <div className="article-section">
                   <h2 className="article-section__title">
-                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ
+                    معرفی بهترین سایت ‌های آموزش جاوا اسکریپت:
                   </h2>
                   <p className="paragraph article-section__text">
-                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و
-                    با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه
-                    و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی
-                    تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای
-                    کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و
-                    آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم
-                    افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص
-                    طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این
-                    صورت می توان امید داشت که تمام و دشواری موجود در ارائه
-                    راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل
-                    حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای
-                    موجود طراحی اساسا مورد استفاده قرار گیرد.
+                    توجه داشته باشید که تمام وب سایت‌هایی که به عنوان بهترین
+                    سایت آموزش جاوا اسکریپت در ادامه معرفی می‌کنیم، بین‌المللی
+                    هستند و منابع موجود در آن‌ها به زبان انگلیسی است. در نتیجه
+                    شما باید یا تسلط متوسط و حداقلی به زبان انگلیسی داشته باشید
+                    و یا اینکه با استفاده از گوگل ترنسلیت منابع موجود را ترجمه
+                    کرده و از آن‌ها استفاده کنید. به همین دلیل در انتهای محتوا
+                    به شما خواهیم گفت که راه آسان دیگری برای یادگیری زبان جاوا
+                    اسکریپت وجود دارد که شما بتوانید به واسطه آن به صورت رایگان
+                    و به زبان فارسی این زبان را یاد بگیرید.
                   </p>
                   <img
-                    src="/images/blog/4-style.jpg"
+                    src="/images/blog/3.jpg"
                     alt="article body img"
                     className="article-section__img"
                   />
@@ -215,6 +258,7 @@ export default function ArticleInfo() {
                     <i className="fab fa-facebook-f article-social-media__icon"></i>
                   </a>
                 </div>
+
               </div>
 
               <div className="suggestion-articles">
@@ -225,8 +269,7 @@ export default function ArticleInfo() {
                         <i className="fas fa-arrow-right suggestion-articles__icon"></i>
                       </a>
                       <a href="#" className="suggestion-articles__link">
-                        سریع ترین و بهترین راه یادگیری جاوا اسکریپت چیست؟ |
-                        تجربه برنامه نویسان
+                        سریع ترین و بهترین راه یادگیری جاوا اسکریپت چیست؟ | تجربه برنامه نویسان
                       </a>
                     </div>
                   </div>
@@ -236,15 +279,20 @@ export default function ArticleInfo() {
                         <i className="fas fa-arrow-left suggestion-articles__icon"></i>
                       </a>
                       <a href="#" className="suggestion-articles__link">
-                        سریع ترین و بهترین راه یادگیری جاوا اسکریپت چیست؟ |
-                        تجربه برنامه نویسان
+                        سریع ترین و بهترین راه یادگیری جاوا اسکریپت چیست؟ | تجربه برنامه نویسان
                       </a>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <CommentsTextArea />
+              </div>
+              {/* <CommentsTextArea
+                  comments={comments}
+                  submitComment={submitComment}
+                /> */}
+
+              {/* <CommentsTextArea /> */}
+
             </div>
             <div className="col-4">
               <div className="courses-info">

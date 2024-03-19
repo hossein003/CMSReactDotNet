@@ -94,7 +94,7 @@ export default function Category() {
                       items={products}
                       itemsCount={6}
                       pathname={`/category-info/${categoryName}`}
-                      setShownProducts={setShownProducts}
+                      setShownItems={setShownProducts}
                     />
                   </>
                 )}

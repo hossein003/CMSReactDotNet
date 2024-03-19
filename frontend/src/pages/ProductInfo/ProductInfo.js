@@ -347,23 +347,44 @@ export default function ProductInfo() {
 
                 <div className="techer-details">
                   <div className="techer-details__header">
-                    <div className="techer-details__header-right">
-                      <img
-                        src={`${productShop.profile}`}
-                        alt="Teacher Profile"
-                        className="techer-details__header-img"
-                      />
-                      <div className="techer-details__header-titles">
-                        <a href="#" className="techer-details__header-link">
-                          {
-                            productShop.name
-                          }
-                        </a>
-                        <span className="techer-details__header-skill">
-                          فروشگاه همواره تخفیف لوازم بهداشتی کودک
-                        </span>
+                    {
+                      productShop !== null ? (
+                        <div className="techer-details__header-right">
+                        <img
+                          src={productShop.profile}
+                          alt="Teacher Profile"
+                          className="techer-details__header-img"
+                        />
+                        <div className="techer-details__header-titles">
+                          <a href="#" className="techer-details__header-link">
+                            {
+                              productShop.name
+                            }
+                          </a>
+                          <span className="techer-details__header-skill">
+                            فروشگاه همواره تخفیف لوازم بهداشتی کودک
+                          </span>
+                        </div>
                       </div>
-                    </div>
+                       ) : (
+                        <div className="techer-details__header-right">
+                        <img
+                          src="/images/info/shop.png"
+                          alt="Teacher Profile"
+                          className="techer-details__header-img"
+                        />
+                        <div className="techer-details__header-titles">
+                          <a href="#" className="techer-details__header-link">
+                            فروشگاه مارکت لند
+                          </a>
+                          <span className="techer-details__header-skill">
+                            فروشگاه همواره تخفیف لوازم بهداشتی کودک
+                          </span>
+                        </div>
+                      </div>
+                      )
+                    }
+
                     <div className="techer-details__header-left">
                       <i className="fas fa-shop techer-details__header-icon"></i>
                       <span className="techer-details__header-name">
