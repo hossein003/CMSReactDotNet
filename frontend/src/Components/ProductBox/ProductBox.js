@@ -10,7 +10,7 @@ export default function (props) {
   const [isImgShow, setIsImgShow] = useState(false);
 
   return (
-    <div className="col-4">
+    <div className="col-4" style={{width:`${props.isSlider && '100%'}`}}>
       <div className="course-box">
         <Link to={`/product-info/${props.shortName}`}>
           <img

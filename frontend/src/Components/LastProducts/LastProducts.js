@@ -23,8 +23,8 @@ export default function LastProducts() {
           <div className="courses-content">
             <div className="container">
               <div className="row">
-                {products.splice(0,6).map((product) => (
-                  <ProductBox {...product}/>
+                {products.splice(0, 6).map((product) => (
+                  <ProductBox {...product} />
                 ))}
               </div>
             </div>
