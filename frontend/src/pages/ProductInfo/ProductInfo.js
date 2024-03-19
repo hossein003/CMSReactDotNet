@@ -16,7 +16,8 @@ export default function ProductInfo() {
   const [sessions, setSessions] = useState([]);
   const [createdAt, setCreatedAt] = useState("");
   const [updatedAt, setUpdatedAt] = useState("");
-  const [courseDetails, setCourseDetails] = useState({});
+  const [productDetail, setProductDetail] = useState({});
+  const [productShop, setProductShop] = useState({})
   const { productName } = useParams();
 
   useEffect(() => {
@@ -31,13 +32,14 @@ export default function ProductInfo() {
       },
     })
       .then((res) => res.json())
-      .then((courseInfo) => {
-        setComments(courseInfo.comments);
-        setSessions(courseInfo.sessions);
-        setCourseDetails(courseInfo);
-        setCreatedAt(courseInfo.createdAt);
-        setUpdatedAt(courseInfo.updatedAt);
-        console.log(courseInfo);
+      .then((productInfo) => {
+        setComments(productInfo.comments);
+        setSessions(productInfo.sessions);
+        setProductDetail(productInfo);
+        setCreatedAt(productInfo.createdAt);
+        setUpdatedAt(productInfo.updatedAt);
+        setProductShop(productInfo.creator)
+        console.log(productInfo);
       });
   }, []);
 
@@ -95,8 +97,8 @@ export default function ProductInfo() {
               <a href="#" className="course-info__link">
                 زیبایی و سلامت
               </a>
-              <h1 className="course-info__title">{courseDetails.name}</h1>
-              <p className="course-info__text">{courseDetails.description}</p>
+              <h1 className="course-info__title">{productDetail.name}</h1>
+              <p className="course-info__text">{productDetail.description}</p>
               <div className="course-info__social-media">
                 <a href="#" className="course-info__social-media-item">
                   <i className="fab fa-telegram-plane course-info__icon"></i>
@@ -137,7 +139,7 @@ export default function ProductInfo() {
                     <ProductDetailBox
                       title="موجودی انبار"
                       text={
-                        courseDetails.isComplete === 1
+                        productDetail.isComplete === 1
                           ? "10 عدد"
                           : "محصول موجود نمیباشد"
                       }
@@ -177,7 +179,7 @@ export default function ProductInfo() {
                     <i className="fas fa-chart-line course-progress__icon"></i>
                     <span className="course-progress__title">
                       درصد موجودی انبار:{" "}
-                      {courseDetails.isComplete === 1 ? "10" : "0"}%
+                      {productDetail.isComplete === 1 ? "10" : "0"}%
                     </span>
                   </div>
                   <div className="progress course-progress__bar">
@@ -190,7 +192,7 @@ export default function ProductInfo() {
                       aria-valuemax="100"
                       style={{
                         width: `${
-                          courseDetails.isComplete === 1 ? "10" : "0"
+                          productDetail.isComplete === 1 ? "10" : "0"
                         }%`,
                       }}
                     ></div>
@@ -347,13 +349,15 @@ export default function ProductInfo() {
                   <div className="techer-details__header">
                     <div className="techer-details__header-right">
                       <img
-                        src="/images/info/shop.png"
+                        src={`${productShop.profile}`}
                         alt="Teacher Profile"
                         className="techer-details__header-img"
                       />
                       <div className="techer-details__header-titles">
                         <a href="#" className="techer-details__header-link">
-                          سیسمونی تویین بیبی
+                          {
+                            productShop.name
+                          }
                         </a>
                         <span className="techer-details__header-skill">
                           فروشگاه همواره تخفیف لوازم بهداشتی کودک
@@ -386,7 +390,7 @@ export default function ProductInfo() {
               <div className="courses-info">
                 <div className="course-info">
                   <div className="course-info__register">
-                    {courseDetails.isUserRegisteredToThisCourse === true ? (
+                    {productDetail.isUserRegisteredToThisCourse === true ? (
                       <span className="course-info__register-title">
                         <i className="fas fa-cart-plus course-info__register-icon"></i>
                         &nbsp;به سبد خرید افزوده شده
@@ -408,7 +412,7 @@ export default function ProductInfo() {
                           &nbsp;تعداد خریدار :&nbsp;
                         </span>
                         <span className="course-info__total-sale-number">
-                          {courseDetails.courseStudentsCount}
+                          {productDetail.courseStudentsCount}
                         </span>
                       </div>
                     </div>
