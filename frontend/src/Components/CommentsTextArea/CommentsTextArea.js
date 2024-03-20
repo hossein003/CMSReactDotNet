@@ -59,15 +59,10 @@ export default function CommentsTextArea({ comments, submitComment }) {
                 </div>
               </>
             ))}
-            <div class="comments__pagantion">
+            {/* <div class="comments__pagantion">
               <ul class="comments__pagantion-list">
                 <li class="comments__pagantion-item">
-                  <a href="#" class="comments__pagantion-link">
-                    <i class="fas fa-long-arrow-alt-right comments__pagantion-icon"></i>
-                  </a>
-                </li>
-                <li class="comments__pagantion-item">
-                  <a href="#" class="comments__pagantion-link">
+                  <a href="#" class="comments__pagantion-link comments__pagantion-link--active">
                     1
                   </a>
                 </li>
@@ -76,16 +71,8 @@ export default function CommentsTextArea({ comments, submitComment }) {
                     2
                   </a>
                 </li>
-                <li class="comments__pagantion-item">
-                  <a
-                    href="#"
-                    class="comments__pagantion-link comments__pagantion-link--active"
-                  >
-                    3
-                  </a>
-                </li>
               </ul>
-            </div>
+            </div> */}
           </>
         )}
       </div>
