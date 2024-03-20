@@ -2,8 +2,14 @@ import React, { useEffect, useState } from "react";
 import "./Landing.css";
 import Typewriter from "typewriter-effect";
 import LandingCounter from "../LandingCounter/LandingCounter";
+import { useNavigate } from "react-router-dom";
 
 export default function Landing() {
+  const [searchValue, setSearchValue] = useState("");
+  const navigate = useNavigate()
+  const goToSearchPage = () => {
+    navigate(`/search/${searchValue}`)
+  };
   return (
     <section className="landing">
       <div className="container">
@@ -36,8 +42,14 @@ export default function Landing() {
             type="text"
             className="landing__searchbar-input"
             placeholder="قصد خرید چه چیزی رو داری ..."
+            value={searchValue}
+            onChange={(event) => setSearchValue(event.target.value)}
           />
-          <button className="landing__searchbar-btn" type="submit">
+          <button
+            className="landing__searchbar-btn"
+            type="submit"
+            onClick={goToSearchPage}
+          >
             <i className="fas fa-search landing__searchbar-icon"></i>
           </button>
         </div>
@@ -78,7 +90,10 @@ export default function Landing() {
               <path d="M156.3 58.2c5.7-6.8 4.7-16.9-2-22.5s-16.9-4.7-22.5 2l-68.9 82.6-35.6-35.6c-6.2-6.2-16.4-6.2-22.6 0s-6.2 16.4 0 22.6l48 48c3.2 3.2 7.5 4.9 12 4.7s8.7-2.3 11.6-5.7l80-96zm0 160c5.7-6.8 4.7-16.9-2-22.5s-16.9-4.7-22.5 2l-68.9 82.6-35.6-35.6c-6.2-6.2-16.4-6.2-22.6 0s-6.2 16.4 0 22.6l48 48c3.2 3.2 7.5 4.9 12 4.7s8.7-2.3 11.6-5.7l80-96zM192 96c0 8.8 7.2 16 16 16h288c8.8 0 16-7.2 16-16s-7.2-16-16-16H208c-8.8 0-16 7.2-16 16zm0 160c0 8.8 7.2 16 16 16h288c8.8 0 16-7.2 16-16s-7.2-16-16-16H208c-8.8 0-16 7.2-16 16zm-32 160c0 8.8 7.2 16 16 16h320c8.8 0 16-7.2 16-16s-7.2-16-16-16H176c-8.8 0-16 7.2-16 16zm-64 0a32 32 0 10-64 0 32 32 0 1064 0z"></path>
             </svg>
             <LandingCounter count={3320} />
-            <span className="landing-status__text"> تکمیل سفارش نیاز کاربر </span>
+            <span className="landing-status__text">
+              {" "}
+              تکمیل سفارش نیاز کاربر{" "}
+            </span>
           </div>
         </div>
       </div>
