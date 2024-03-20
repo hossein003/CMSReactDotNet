@@ -7,14 +7,14 @@ import "./Navbar.css";
 export default function Navbar() {
   const [allMenus, setAllMenus] = useState([]);
   const authContext = useContext(AuthContext);
-  console.log(authContext);
+  // console.log(authContext);
 
   useEffect(() => {
     fetch(`http://localhost:4000/v1/menus`)
       .then((res) => res.json())
       .then((menus) => {
         setAllMenus(menus);
-        console.log(menus);
+        // console.log(menus);
       });
   }, []);
 
@@ -37,7 +37,14 @@ export default function Navbar() {
               </li>
               {allMenus.map((menu) => (
                 <li className="main-header__item">
-                  <Link to={`${menu.href}/1`} className="main-header__link">
+                  <Link
+                    to={`${menu.href}/${
+                      menu.href !== "/about" && menu.href !== "/contact"
+                        ? "1"
+                        : ""
+                    }`}
+                    className="main-header__link"
+                  >
                     {menu.title}
                     {menu.submenus.length !== 0 && (
                       <>
@@ -49,9 +56,7 @@ export default function Navbar() {
                                 to={submenu.href}
                                 className="main-header__dropdown-link"
                               >
-                                {
-                                  submenu.title
-                                }
+                                {submenu.title}
                               </Link>
                             </li>
                           ))}

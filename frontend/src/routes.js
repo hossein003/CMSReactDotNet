@@ -6,6 +6,8 @@ import Products from "./pages/Products/Products"
 import Articles from "./pages/Articles/Articles"
 import Login from "./pages/Login/Login"
 import Register from "./pages/Register/Register"
+import Contact from "./pages/Contact/Contact"
+import About from "./pages/About/About"
 
 const routes = [
     {path: '/', element: <Index />},
@@ -16,6 +18,8 @@ const routes = [
     { path: "/articles/:page", element: <Articles /> },
     {path: '/login', element: <Login />},
     {path: '/register', element: <Register />},
+    {path: '/contact', element: <Contact />},
+    {path: '/about', element: <About />},
 ]
 
 
