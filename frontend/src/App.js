@@ -39,7 +39,7 @@ export default function App() {
           setUserInfos(userData);
         });
     } else {
-      setIsLoggedIn(false);
+      setIsLoggedIn(false)
     }
   }, [login, logout]);
 

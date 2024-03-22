@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import Topbar from "./../../Components/Topbar/Topbar";
 import Navbar from "./../../Components/Navbar/Navbar";
 import Footer from "./../../Components/Footer/Footer";
+
+import "./Category.css";
+import ProductBox from "../../Components/ProductBox/ProductBox";
 import Pagination from "../../Components/Pagination/Pagination";
 import { useParams } from "react-router-dom";
-import ProductBox from "../../Components/ProductBox/ProductBox";
-import "./Category.css";
 
 export default function Category() {
   const [products, setProducts] = useState([]);
@@ -14,15 +15,20 @@ export default function Category() {
   const [status, setStatus] = useState("default");
   const [statusTitle, setStatusTitle] = useState("مرتب سازی پیش فرض");
   const [searchValue, setSearchValue] = useState("");
-  const [productsDisplayType, setProductsDisplayType] = useState("row");
+  const [ProductsDisplayType, setProductsDisplayType] = useState("row");
 
   const { categoryName } = useParams();
 
   useEffect(() => {
-    fetch(`http://localhost:4000/v1/courses/category/${categoryName}`)
+    fetch(`http://localhost:4000/v1/courses/category/${categoryName}`, {
+      headers: {
+        Authorization: `Bearer ${
+          JSON.parse(localStorage.getItem("user")).token
+        }`,
+      },
+    })
       .then((res) => res.json())
       .then((allProducts) => {
-        console.log(allProducts);
         setProducts(allProducts);
         setOrderedProducts(allProducts);
       });
@@ -31,14 +37,12 @@ export default function Category() {
   useEffect(() => {
     switch (status) {
       case "free": {
-        const freeProducts = products.filter((product) => product.price === 0);
+        const freeProducts = products.filter((course) => course.price === 0);
         setOrderedProducts(freeProducts);
         break;
       }
       case "money": {
-        const notFreeProducts = products.filter(
-          (product) => product.price !== 0
-        );
+        const notFreeProducts = products.filter((course) => course.price !== 0);
         setOrderedProducts(notFreeProducts);
         break;
       }
@@ -47,8 +51,8 @@ export default function Category() {
         break;
       }
       case "first": {
-        const reversedCourses = products.slice().reverse();
-        setOrderedProducts(reversedCourses);
+        const reversedProducts = products.slice().reverse();
+        setOrderedProducts(reversedProducts);
         break;
       }
       default: {
@@ -63,10 +67,10 @@ export default function Category() {
 
   const searchValueChangeHandler = (event) => {
     setSearchValue(event.target.value);
-    const filterProducts = products.filter((product) =>
-      product.name.includes(event.target.value)
+    const filteredProducts = products.filter((course) =>
+      course.name.includes(event.target.value)
     );
-    setOrderedProducts(filterProducts);
+    setOrderedProducts(filteredProducts);
   };
 
   return (
@@ -81,7 +85,7 @@ export default function Category() {
               <div className="row">
                 {products.length === 0 ? (
                   <div className="alert alert-warning">
-                    هنوز هیچ محصولی برای این کتگوری وجود ندارد
+                    هنوز هیچ دوره‌ای برای این کتگوری وجود ندارد
                   </div>
                 ) : (
                   <>
@@ -89,7 +93,7 @@ export default function Category() {
                       <div className="courses-top-bar__right">
                         <div
                           className={`courses-top-bar__row-btn ${
-                            productsDisplayType === "row"
+                            ProductsDisplayType === "row"
                               ? "courses-top-bar__icon--active"
                               : ""
                           }`}
@@ -99,7 +103,7 @@ export default function Category() {
                         </div>
                         <div
                           className={`courses-top-bar__column-btn ${
-                            productsDisplayType === "column"
+                            ProductsDisplayType === "column"
                               ? "courses-top-bar__icon--active"
                               : ""
                           }`}
@@ -110,6 +114,7 @@ export default function Category() {
 
                         <div className="courses-top-bar__selection">
                           <span className="courses-top-bar__selection-title">
+                            {/* مرتب سازی پیش فرض */}
                             {statusTitle}
                             <i className="fas fa-angle-down courses-top-bar__selection-icon"></i>
                           </span>
@@ -130,7 +135,7 @@ export default function Category() {
                                 statusTitleChangeHandler(event);
                               }}
                             >
-                              مرتب سازی محصولات رایگان
+                              مرتب سازی دوره های رایگان
                             </li>
                             <li
                               className="courses-top-bar__selection-item"
@@ -139,7 +144,7 @@ export default function Category() {
                                 statusTitleChangeHandler(event);
                               }}
                             >
-                              مرتب سازی محصولات پولی
+                              مرتب سازی دوره های پولی
                             </li>
                             <li
                               className="courses-top-bar__selection-item"
@@ -159,6 +164,24 @@ export default function Category() {
                             >
                               مرتب سازی بر اساس اولین
                             </li>
+                            <li
+                              className="courses-top-bar__selection-item"
+                              onClick={(event) => {
+                                setStatus("cheap");
+                                statusTitleChangeHandler(event);
+                              }}
+                            >
+                              مرتب سازی بر اساس ارزان ترین
+                            </li>
+                            <li
+                              className="courses-top-bar__selection-item"
+                              onClick={(event) => {
+                                setStatus("expensive");
+                                statusTitleChangeHandler(event);
+                              }}
+                            >
+                              مرتب سازی بر اساس گران ترین
+                            </li>
                           </ul>
                         </div>
                       </div>
@@ -168,7 +191,7 @@ export default function Category() {
                           <input
                             type="text"
                             className="courses-top-bar__input"
-                            placeholder="جستجوی محصول ..."
+                            placeholder="جستجوی دوره ..."
                             value={searchValue}
                             onChange={searchValueChangeHandler}
                           />
@@ -176,82 +199,83 @@ export default function Category() {
                         </form>
                       </div>
                     </div>
+
                     {shownProducts.length === 0 ? (
                       <div className="alert alert-warning">
-                        هیچ محصولی برای {statusTitle} وجود ندارد
+                        هیچ دوره‌ای برای {statusTitle} وجود ندارد
                       </div>
                     ) : (
                       <>
-                        {productsDisplayType === "row" ? (
+                        {ProductsDisplayType === "row" ? (
                           <>
                             {shownProducts.map((product) => (
-                              <ProductBox {...product} />
+                              <ProductBox {...product} key={product._id} />
                             ))}
                           </>
                         ) : (
                           <>
                             {shownProducts.map((product) => (
-                              <div class="col-12">
-                                <div class="course-box">
-                                  <div class="course__box-header">
-                                    <div class="course__box-right">
+                              <div className="col-12" key={product._id}>
+                                <div className="course-box">
+                                  <div className="course__box-header">
+                                    <div className="course__box-right">
                                       <a
-                                        class="course__box-right-link"
+                                        className="course__box-right-link"
                                         href="#"
                                       >
                                         <img
                                           src="/images/courses/fareelancer.png"
-                                          class="course__box-right-img"
+                                          className="course__box-right-img"
                                         />
                                       </a>
                                     </div>
-                                    <div class="course__box-left">
-                                      <div class="course__box-left-top">
+                                    <div className="course__box-left">
+                                      <div className="course__box-left-top">
                                         <a
                                           href="#"
-                                          class="course__box-left-link"
+                                          className="course__box-left-link"
                                         >
                                           {product.name}
                                         </a>
                                       </div>
-                                      <div class="course__box-left-center">
-                                        <div class="course__box-left-teacher">
-                                          <i class="course__box-left-icon fa fa-chalkboard-teacher"></i>
-                                          <span class="course__box-left-name">
-                                            محمد امین سعیدی راد
+                                      <div className="course__box-left-center">
+                                        <div className="course__box-left-teacher">
+                                          <i className="course__box-left-icon fa fa-chalkboard-teacher"></i>
+                                          <span className="course__box-left-name">
+                                            حسین صالحی
                                           </span>
                                         </div>
-                                        <div class="course__box-left-stars">
-                                          <span class="course__box-left-star">
+                                        <div className="course__box-left-stars">
+                                          <span className="course__box-left-star">
                                             <img src="/images/svgs/star_fill.svg" />
                                           </span>
-                                          <span class="course__box-left-star">
+                                          <span className="course__box-left-star">
                                             <img src="/images/svgs/star_fill.svg" />
                                           </span>
-                                          <span class="course__box-left-star">
+                                          <span className="course__box-left-star">
                                             <img src="/images/svgs/star_fill.svg" />
                                           </span>
-                                          <span class="course__box-left-star">
+                                          <span className="course__box-left-star">
                                             <img src="/images/svgs/star_fill.svg" />
                                           </span>
-                                          <span class="course__box-left-star">
+                                          <span className="course__box-left-star">
                                             <img src="/images/svgs/star_fill.svg" />
                                           </span>
                                         </div>
                                       </div>
-                                      <div class="course__box-left-bottom">
-                                        <div class="course__box-left-des">
+                                      <div className="course__box-left-bottom">
+                                        <div className="course__box-left-des">
                                           <p>{product.description}</p>
                                         </div>
                                       </div>
-                                      <div class="course__box-footer">
-                                        <div class="course__box-footer-right">
-                                          <i class="course__box-footer-icon fa fa-users"></i>
-                                          <span class="course__box-footer-count">
+                                      <div className="course__box-footer">
+                                        <div className="course__box-footer-right">
+                                          <i className="course__box-footer-icon fa fa-users"></i>
+                                          <span className="course__box-footer-count">
                                             202
                                           </span>
                                         </div>
-                                        <span class="course__box-footer-left">
+                                        <span className="course__box-footer-left">
                                           {product.price === 0
                                             ? "رایگان"
                                             : product.price.toLocaleString()}
@@ -269,9 +293,9 @@ export default function Category() {
 
                     <Pagination
                       items={orderedProducts}
-                      itemsCount={6}
+                      itemsCount={3}
                       pathname={`/category-info/${categoryName}`}
-                      setShownItems={setShownProducts}
+                      setShownProducts={setShownProducts}
                     />
                   </>
                 )}

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import "./ArticleBox.css";
 
 export default function ArticleBox({ title, description, cover, shortName }) {
+  console.log(cover);
   return (
     <div className="col-4">
       <div className="article-card">
@@ -12,8 +13,9 @@ export default function ArticleBox({ title, description, cover, shortName }) {
             to={`/article-info/${shortName}`}
             className="article-card__link-img"
           >
+            
             <img
-              src={cover}
+              src={`/images/blog/${cover}`}
               className="article-card__img"
               alt="Article Cover"
             />

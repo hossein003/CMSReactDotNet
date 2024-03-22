@@ -45,28 +45,22 @@ export default function Topbar() {
             <div class="home-searchbar">
               <input type="text" class="search-bar" placeholder="جستجو..." />
             </div>
-            <span
-              class="fa-stack home-notification"
-              data-count={adminNotifications.length}
-              onClick={() =>
-                isShowNotificationsBox
-                  ? setIsShowNotificationsBox(false)
-                  : setIsShowNotificationsBox(true)
-              }
-            >
-              <i class="fa fa-circle fa-stack-1x"></i>
-              <i class="fa fa-bell fa-stack-1x fa-inverse"></i>
-            </span>
-
+            <div class="home-notification">
+              <span class="fa-stack" style={adminNotifications.length === 0 ? {display:'none'} : {display:''}} data-count={adminNotifications.length} type="button"  onClick={()=>{ isShowNotificationsBox ? setIsShowNotificationsBox(false) : setIsShowNotificationsBox(true)}}>
+                <i class="fa fa-circle fa-stack-1x"></i>
+                <i class="fa fa-bell fa-stack-1x fa-inverse"></i>
+              </span>
+            </div>
             <div
               class="home-notification-modal"
+
               onMouseEnter={() => setIsShowNotificationsBox(true)}
               onMouseLeave={() => setIsShowNotificationsBox(false)}
             >
               <ul class="home-notification-modal-list">
                 {adminNotifications.length === 0 ? (
                   <li class="home-notification-modal-item">
-                    اعلانی برای نمایش وجود ندارد
+                    نوتیفکیشنی برای نمایش وجود ندارد
                   </li>
                 ) : (
                   <>
@@ -75,11 +69,11 @@ export default function Topbar() {
                         <span class="home-notification-modal-text">
                           {notification.msg}
                         </span>
-                        <label className="switch">
+                        <label class="switch">
                           <a
+                          className="alert alert-warning"
                             href="javascript:void(0)"
                             onClick={() => seeNotification(notification._id)}
-                            className="alert alert-warning"
                           >
                             دیدم
                           </a>
@@ -95,7 +89,7 @@ export default function Topbar() {
             <div class="home-profile">
               <div class="home-profile-image">
                 <a href="#">
-                  <img src={adminInfo.profile} alt="" />
+                  <img src={`/images/info/${adminInfo.profile}`} alt="" />
                 </a>
               </div>
               <div class="home-profile-name">

@@ -63,12 +63,12 @@ export default function ArticleInfo() {
           {
             id: 2,
             title: "مقاله ها",
-            to: "article-info",
+            to: "articles/1",
           },
           {
             id: 3,
-            title: "10 استایل جذاب و مدرن",
-            to: "article-info/10-attractive-and-modern-styles",
+            title: `${articleDetails.title}`,
+            to: `article-info/${articleDetails.shortName}`,
           },
         ]}
       />
@@ -79,9 +79,7 @@ export default function ArticleInfo() {
           <div className="col-8">
               <div className="article">
                 <h1 className="article__title">
-                 {
-                   articleDetails.title
-                 }
+                 {articleDetails.title}
                 </h1>
                 <div className="article__header">
                   <div className="article-header__category article-header__item">
@@ -114,7 +112,7 @@ export default function ArticleInfo() {
                   </div>
                 </div>
                 <img
-                  src="/images/blog/1.jpg"
+                  src={`/images/blog/${articleDetails.cover}`}
                   alt="Article Cover"
                   className="article__banner"
                 />
@@ -144,20 +142,7 @@ export default function ArticleInfo() {
                   <span className="article__score-text">4.2/5 - (5 امتیاز)</span>
                 </div>
 
-                <p className="article__paragraph paragraph">
-                  جاوا اسکریپت یکی از زبان‌های برنامه‌نویسی اصلی حوزه فرانت‌اند
-                  است که به واسطه فریم ورک‌های آن می‌توان انواع وب سایت‌ها،
-                  اپلیکیشن‌ها و وب اپلیکیشن‌ها را طراحی کرد. به طور کلی بعد از
-                  یادگیری html و css معمولاً باید آموزش جاوا اسکریپت را نیز فرا
-                  بگیرید. . چرا که این زبان تکمیل‌کننده html و css بوده و در
-                  چنین شرایطی موقعیت‌های شغلی بیشتر را در اختیار خواهید داشت و
-                  همچنین می‌توانید پروژه‌های گسترده‌تری را انجام دهید. در حال
-                  حاضر با وجود منابع رایگان موجود در وب شما به راحتی می‌توانید
-                  زبان جاوا اسکریپت را به صورت حرفه‌ای فرا بگیرید. به همین واسطه
-                  در ادامه مطلب قصد داریم سایت‌های شاخص آموزش این زبان
-                  برنامه‌نویسی در جهان را به شما معرفی کنیم و در آخر بگوییم که
-                  بهترین سایت آموزش جاوا اسکریپت کدام است.
-                </p>
+                <p className="article__paragraph paragraph">{`${articleDetails.description}`}</p>
 
                 <div className="article-read">
                   <span className="article-read__title">
@@ -166,81 +151,57 @@ export default function ArticleInfo() {
                   <ul className="article-read__list">
                     <li className="article-read__item">
                       <a href="#" className="article-read__link">
-                        معرفی بهترین سایت ‌های آموزش جاوا اسکریپت:
+                      {articleDetails.title}
                       </a>
                     </li>
                     <li className="article-read__item">
                       <a href="#" className="article-read__link">
-                        یک راه آسان‌تر، دوره‌ های جاوا اسکریپت آکادمی سبزلرن!
+                      {articleDetails.title}
                       </a>
                     </li>
                     <li className="article-read__item">
                       <a href="#" className="article-read__link">
-                        ثبت نام در دوره‌ های جاوا اسکریپت سبزلرن:
+                      {articleDetails.title}
                       </a>
                     </li>
                   </ul>
                 </div>
 
                 <img
-                  src="/images/blog/2.jpg"
+                  src={`/images/blog/${articleDetails.cover}`}
                   alt="Article Image"
                   className="article__seconadary-banner"
                 />
                 <div className="article-section">
                   <h2 className="article-section__title">
-                    معرفی بهترین سایت ‌های آموزش جاوا اسکریپت:
+                  {articleDetails.title}
                   </h2>
                   <p className="paragraph article-section__text">
-                    توجه داشته باشید که تمام وب سایت‌هایی که به عنوان بهترین
-                    سایت آموزش جاوا اسکریپت در ادامه معرفی می‌کنیم، بین‌المللی
-                    هستند و منابع موجود در آن‌ها به زبان انگلیسی است. در نتیجه
-                    شما باید یا تسلط متوسط و حداقلی به زبان انگلیسی داشته باشید
-                    و یا اینکه با استفاده از گوگل ترنسلیت منابع موجود را ترجمه
-                    کرده و از آن‌ها استفاده کنید. به همین دلیل در انتهای محتوا
-                    به شما خواهیم گفت که راه آسان دیگری برای یادگیری زبان جاوا
-                    اسکریپت وجود دارد که شما بتوانید به واسطه آن به صورت رایگان
-                    و به زبان فارسی این زبان را یاد بگیرید.
+                  {articleDetails.description}
                   </p>
                   <img
-                    src="/images/blog/4.png"
+                    src={`/images/blog/${articleDetails.cover}`}
                     alt="article body img"
                     className="article-section__img"
                   />
                 </div>
                 <div className="article-section">
                   <h2 className="article-section__title">
-                    معرفی بهترین سایت ‌های آموزش جاوا اسکریپت:
+                  {articleDetails.title}
                   </h2>
                   <p className="paragraph article-section__text">
-                    توجه داشته باشید که تمام وب سایت‌هایی که به عنوان بهترین
-                    سایت آموزش جاوا اسکریپت در ادامه معرفی می‌کنیم، بین‌المللی
-                    هستند و منابع موجود در آن‌ها به زبان انگلیسی است. در نتیجه
-                    شما باید یا تسلط متوسط و حداقلی به زبان انگلیسی داشته باشید
-                    و یا اینکه با استفاده از گوگل ترنسلیت منابع موجود را ترجمه
-                    کرده و از آن‌ها استفاده کنید. به همین دلیل در انتهای محتوا
-                    به شما خواهیم گفت که راه آسان دیگری برای یادگیری زبان جاوا
-                    اسکریپت وجود دارد که شما بتوانید به واسطه آن به صورت رایگان
-                    و به زبان فارسی این زبان را یاد بگیرید.
+                  {articleDetails.description}
                   </p>
                 </div>
                 <div className="article-section">
                   <h2 className="article-section__title">
-                    معرفی بهترین سایت ‌های آموزش جاوا اسکریپت:
+                  {articleDetails.title}
                   </h2>
                   <p className="paragraph article-section__text">
-                    توجه داشته باشید که تمام وب سایت‌هایی که به عنوان بهترین
-                    سایت آموزش جاوا اسکریپت در ادامه معرفی می‌کنیم، بین‌المللی
-                    هستند و منابع موجود در آن‌ها به زبان انگلیسی است. در نتیجه
-                    شما باید یا تسلط متوسط و حداقلی به زبان انگلیسی داشته باشید
-                    و یا اینکه با استفاده از گوگل ترنسلیت منابع موجود را ترجمه
-                    کرده و از آن‌ها استفاده کنید. به همین دلیل در انتهای محتوا
-                    به شما خواهیم گفت که راه آسان دیگری برای یادگیری زبان جاوا
-                    اسکریپت وجود دارد که شما بتوانید به واسطه آن به صورت رایگان
-                    و به زبان فارسی این زبان را یاد بگیرید.
+                  {articleDetails.description}
                   </p>
                   <img
-                    src="/images/blog/3.jpg"
+                    src={`/images/blog/${articleDetails.cover}`}
                     alt="article body img"
                     className="article-section__img"
                   />
@@ -269,7 +230,7 @@ export default function ArticleInfo() {
                         <i className="fas fa-arrow-right suggestion-articles__icon"></i>
                       </a>
                       <a href="#" className="suggestion-articles__link">
-                        سریع ترین و بهترین راه یادگیری جاوا اسکریپت چیست؟ | تجربه برنامه نویسان
+                        استایل آبی - استایل آرامش بخش
                       </a>
                     </div>
                   </div>
@@ -279,19 +240,13 @@ export default function ArticleInfo() {
                         <i className="fas fa-arrow-left suggestion-articles__icon"></i>
                       </a>
                       <a href="#" className="suggestion-articles__link">
-                        سریع ترین و بهترین راه یادگیری جاوا اسکریپت چیست؟ | تجربه برنامه نویسان
+                        3 استایل جذاب برای خانم ها
                       </a>
                     </div>
                   </div>
                 </div>
 
               </div>
-              {/* <CommentsTextArea
-                  comments={comments}
-                  submitComment={submitComment}
-                /> */}
-
-              {/* <CommentsTextArea /> */}
 
             </div>
             <div className="col-4">
@@ -311,7 +266,7 @@ export default function ArticleInfo() {
                       <div className="course-info__total-comment">
                         <i className="far fa-comments course-info__total-comment-icon"></i>
                         <span className="course-info__total-comment-text">
-                          67 دیدگاه
+                          2 دیدگاه
                         </span>
                       </div>
                       <div className="course-info__total-view">

@@ -14,7 +14,7 @@ export default function (props) {
       <div className="course-box">
         <Link to={`/product-info/${props.shortName}`}>
           <img
-            src={props.cover}
+            src={`/images/products/${props.cover}`}
             alt="Product img"
             className="course-box__img"
             onLoad={onImageLoaded}
@@ -34,7 +34,7 @@ export default function (props) {
             <div className="course-box__teacher">
               <i className="fa-solid fa-warehouse course-box__teacher-icon"></i>
               <a href="#" className="course-box__teacher-link">
-                سیسمونی تویین بیبی
+               
               </a>
             </div>
             <div className="course-box__rating">
