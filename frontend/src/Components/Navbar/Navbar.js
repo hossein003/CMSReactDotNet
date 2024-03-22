@@ -7,14 +7,12 @@ import "./Navbar.css";
 export default function Navbar() {
   const [allMenus, setAllMenus] = useState([]);
   const authContext = useContext(AuthContext);
-  // console.log(authContext);
 
   useEffect(() => {
     fetch(`http://localhost:4000/v1/menus`)
       .then((res) => res.json())
       .then((menus) => {
         setAllMenus(menus);
-        // console.log(menus);
       });
   }, []);
 
@@ -26,7 +24,7 @@ export default function Navbar() {
             <img
               src="/images/logo/Logo.png"
               className="main-header__logo"
-              alt="لوگوی مارکت لند"
+              alt="لوگوی سبزلرن"
             />
 
             <ul className="main-header__menu">
@@ -35,16 +33,10 @@ export default function Navbar() {
                   صفحه اصلی
                 </a>
               </li>
-              {allMenus.map((menu) => (
-                <li className="main-header__item">
-                  <Link
-                    to={`${menu.href}/${
-                      menu.href !== "/about" && menu.href !== "/contact"
-                        ? "1"
-                        : ""
-                    }`}
-                    className="main-header__link"
-                  >
+
+              {allMenus.map((menu, index) => (
+                <li className="main-header__item" key={index}>
+                  <Link to={`/products/1`} className="main-header__link">
                     {menu.title}
                     {menu.submenus.length !== 0 && (
                       <>
@@ -69,119 +61,8 @@ export default function Navbar() {
 
               {/* <li className="main-header__item">
                 <a href="#" className="main-header__link">
-                  کالای دیجیتال
-                  <i className="fas fa-angle-down main-header__link-icon"></i>
-                  <ul className="main-header__dropdown">
-                    <li className="main-header__dropdown-item">
-                      <a href="#" className="main-header__dropdown-link">
-                        گوشی
-                      </a>
-                    </li>
-                    <li className="main-header__dropdown-item">
-                      <a href="#" className="main-header__dropdown-link">
-                        تبلت
-                      </a>
-                    </li>
-                    <li className="main-header__dropdown-item">
-                      <a href="#" className="main-header__dropdown-link">
-                        هدفون
-                      </a>
-                    </li>
-                    <li className="main-header__dropdown-item">
-                      <a href="#" className="main-header__dropdown-link">
-                        لپ تاپ
-                      </a>
-                    </li>
-                    <li className="main-header__dropdown-item">
-                      <a href="#" className="main-header__dropdown-link">
-                        کنسول بازی
-                      </a>
-                    </li>
-                  </ul>
-                </a>
-              </li>
-              <li className="main-header__item">
-                <a href="#" className="main-header__link">
-                  مد و پوشاک
-                  <i className="fas fa-angle-down main-header__link-icon"></i>
-                  <ul className="main-header__dropdown">
-                    <li className="main-header__dropdown-item">
-                      <a href="#" className="main-header__dropdown-link">
-                        پوشاک مردانه
-                      </a>
-                    </li>
-                    <li className="main-header__dropdown-item">
-                      <a href="#" className="main-header__dropdown-link">
-                        پوشاک زنانه
-                      </a>
-                    </li>
-                    <li className="main-header__dropdown-item">
-                      <a href="#" className="main-header__dropdown-link">
-                        کفش مردانه
-                      </a>
-                    </li>
-                    <li className="main-header__dropdown-item">
-                      <a href="#" className="main-header__dropdown-link">
-                        کفش زنانه
-                      </a>
-                    </li>
-                  </ul>
-                </a>
-              </li>
-              <li className="main-header__item">
-                <a href="#" className="main-header__link">
-                  زیبایی و سلامت
-                  <i className="fas fa-angle-down main-header__link-icon"></i>
-                  <ul className="main-header__dropdown">
-                    <li className="main-header__dropdown-item">
-                      <a href="#" className="main-header__dropdown-link">
-                        مراقبت پوست
-                      </a>
-                    </li>
-                    <li className="main-header__dropdown-item">
-                      <a href="#" className="main-header__dropdown-link">
-                        عطر و ادکلن
-                      </a>
-                    </li>
-                    <li className="main-header__dropdown-item">
-                      <a href="#" className="main-header__dropdown-link">
-                        مراقبت و زیبایی مو
-                      </a>
-                    </li>
-                  </ul>
-                </a>
-              </li>
-              <li className="main-header__item">
-                <a href="#" className="main-header__link">
-                  مقالات
-                  <i className="fas fa-angle-down main-header__link-icon"></i>
-                  <ul className="main-header__dropdown">
-                    <li className="main-header__dropdown-item">
-                      <a href="#" className="main-header__dropdown-link">
-                        ساعتی که قرار نیست انرژیش تموم بشه
-                      </a>
-                    </li>
-                    <li className="main-header__dropdown-item">
-                      <a href="#" className="main-header__dropdown-link">
-                        10 استایل جذاب و شیک پوش
-                      </a>
-                    </li>
-                    <li className="main-header__dropdown-item">
-                      <a href="#" className="main-header__dropdown-link">
-                        ژل سرم آبرسان
-                      </a>
-                    </li>
-                  </ul>
-                </a>
-              </li>
-              <li className="main-header__item">
-                <a href="#" className="main-header__link">
-                  درباره ما
-                </a>
-              </li>
-              <li className="main-header__item">
-                <a href="#" className="main-header__link">
-                  ارتباط با ما
+                  فرانت اند
+                  
                 </a>
               </li> */}
             </ul>
@@ -196,7 +77,7 @@ export default function Navbar() {
             </a>
 
             {authContext.isLoggedIn ? (
-              <Link to="#" className="main-header__profile">
+              <Link to="/p-admin" className="main-header__profile">
                 <span className="main-header__profile-text">
                   {authContext.userInfos.name}
                 </span>

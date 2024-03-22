@@ -20,11 +20,10 @@ import AuthContext from "../../context/authContext";
 import "./Register.css";
 
 export default function Register() {
-
-  const authContext = useContext(AuthContext)
+  const authContext = useContext(AuthContext);
   const navigate = useNavigate();
-  const [isGoogleReCaptchaVerify,setIsGoogleReCaptchaVerify] = useState(true)
-
+  let checkStateRegister = 0;
+  const [isGoogleReCaptchaVerify, setIsGoogleReCaptchaVerify] = useState(true);
 
   const [formState, onInputHandler] = useForm(
     {
@@ -33,6 +32,10 @@ export default function Register() {
         isValid: false,
       },
       username: {
+        value: "",
+        isValid: false,
+      },
+      phoneNumber: {
         value: "",
         isValid: false,
       },
@@ -54,6 +57,7 @@ export default function Register() {
     const newUserInfos = {
       name: formState.inputs.name.value,
       username: formState.inputs.username.value,
+      phone: formState.inputs.phoneNumber.value,
       email: formState.inputs.email.value,
       password: formState.inputs.password.value,
       confirmPassword: formState.inputs.password.value,
@@ -66,16 +70,34 @@ export default function Register() {
       },
       body: JSON.stringify(newUserInfos),
     })
-      .then((res) => {
-        if (!res.ok) {
+      .then(res => {console.log(res);
+        if (res.status === 403) {
+          console.log(res.status);
+          checkStateRegister = 403;
+        } else if(res.status === 409) {
+          return checkStateRegister = 409;
+        } else if(res.status === 201) {
+          return res.json()
+        } else {
           return res.text().then((text) => {
             throw new Error(text);
           });
-        } else {
-          return res.json();
         }
       })
       .then((result) => {
+      if (checkStateRegister === 403) {
+        return swal({
+          title: "این شماره در لیست مسدود شده ها میباشد",
+          icon: "error",
+          buttons: "تایید",
+        });
+      } else if (checkStateRegister === 409) {
+        swal({
+          title: "نام کاربری یا ایمیل شما از قبل موجود میباشد",
+          icon: "error",
+          buttons: "تایید",
+        });
+      }else {
         swal({
           title: "ثبت نام با موفقیت انجام شد",
           icon: "success",
@@ -83,8 +105,10 @@ export default function Register() {
         }).then((value) => {
           navigate("/");
         });
-        authContext.login(result.user, result.accessToken)
-      }).catch((err) => {
+        authContext.login(result.user, result.accessToken);
+        }
+      })
+      .catch((err) => {
         console.log(`err => `, err);
         swal({
           title: "مشکلی در روند ثبت نام به وجود آمده لطفا مجددا تلاش کنید",
@@ -94,8 +118,8 @@ export default function Register() {
       });
   };
   const onChangeHandler = () => {
-    setIsGoogleReCaptchaVerify(false)
-  }
+    setIsGoogleReCaptchaVerify(false);
+  };
 
   return (
     <>
@@ -149,6 +173,22 @@ export default function Register() {
               />
               <i className="login-form__username-icon fa fa-user"></i>
             </div>
+            <div className="login-form__username">
+              <Input
+                type="number"
+                placeholder="شماره تماس"
+                className="login-form__username-input"
+                element="input"
+                id="phoneNumber"
+                onInputHandler={onInputHandler}
+                validations={[
+                  requiredValidator(),
+                  minValidator(10),
+                  maxValidator(12),
+                ]}
+              />
+              <i className="login-form__username-icon fa-solid fa-phone"></i>
+            </div>
             <div className="login-form__password">
               <Input
                 type="text"
@@ -182,17 +222,20 @@ export default function Register() {
               <i className="login-form__password-icon fa fa-lock-open"></i>
             </div>
             <div className="login-form__password recaptcha-parent">
-              <ReCAPTCHA sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" onChange={onChangeHandler} />
+              <ReCAPTCHA
+                sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+                onChange={onChangeHandler}
+              />
             </div>
             <Button
               className={`login-form__btn ${
-                (formState.isFormValid && !isGoogleReCaptchaVerify)
+                formState.isFormValid && !isGoogleReCaptchaVerify
                   ? "login-form__btn-success"
                   : "login-form__btn-error"
               }`}
               type="submit"
               onClick={registerNewUser}
-              disabled={!formState.isFormValid ||isGoogleReCaptchaVerify}
+              disabled={!formState.isFormValid || isGoogleReCaptchaVerify}
             >
               <i className="login-form__btn-icon fa fa-user-plus"></i>
               <span className="login-form__btn-text">عضویت</span>

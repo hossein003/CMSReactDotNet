@@ -1,4 +1,6 @@
 .course-box {
+  width: 100%; 
+  overflow: hidden; 
     background-color: var(--white-color);
     box-shadow: 0 0 19px rgba(168, 172, 185, 0.3);
     border-radius: 1rem;
@@ -11,8 +13,12 @@
   }
   
   .course-box__img {
+    border-radius: 2px;
     width: 100%;
-    border-radius: 1rem 1rem 0 0;
+    height: auto;
+    aspect-ratio: 16 / 9; 
+    overflow: hidden;
+    object-fit: contain;
   }
   
   .course-box__main {

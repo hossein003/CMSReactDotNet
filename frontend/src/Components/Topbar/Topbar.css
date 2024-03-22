@@ -50,3 +50,37 @@
   }
   
   /* Finish Top-Bar Styles */
+
+  .home-notification-modal-item{
+    margin: 0px;
+  }
+
+  .fa-stack[data-count]:after{
+    position:absolute;
+    right:-5px;
+    top:-5px;
+    content: attr(data-count);
+    font-size:0.6em;
+    padding:.6em;
+    border-radius:999px;
+    line-height:.75em;
+    color: white;
+    background:rgba(255,0,0,.85);
+    text-align:center;
+    min-width:2em;
+    font-weight:bold;
+    cursor: pointer;
+  }
+  .fa-bell{
+    font-size: 1em;
+    cursor: pointer;
+  }
+  .fa-circle{
+    color: var(--primary-color);
+    font-size: 2em;
+    cursor: pointer;
+  }
+  .switch{
+    margin: 10px;
+    margin-bottom: 15px;
+  }

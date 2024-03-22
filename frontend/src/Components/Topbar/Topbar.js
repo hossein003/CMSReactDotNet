@@ -36,11 +36,6 @@ export default memo( function Topbar() {
           <div className="top-bar__left">
             <div className="top-bar__email">
               <a href="#" className="top-bar__email-text top-bar__link">
-                200,000 تومان
-              </a>
-            </div>
-            <div className="top-bar__email">
-              <a href="#" className="top-bar__email-text top-bar__link">
                 marketland@gmail.com
               </a>
               <i className="fas fa-envelope top-bar__email-icon"></i>

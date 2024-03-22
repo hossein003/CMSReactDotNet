@@ -6,7 +6,7 @@ import Breadcrumb from "../../Components/Breadcrumb/Breadcrumb";
 import ProductDetailBox from "../../Components/ProductDetailBox/ProductDetailBox";
 import CommentsTextArea from "../../Components/CommentsTextArea/CommentsTextArea";
 import Accordion from "react-bootstrap/Accordion";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import swal from "sweetalert"
 
 import "./ProductInfo.css";
@@ -17,10 +17,25 @@ export default function ProductInfo() {
   const [createdAt, setCreatedAt] = useState("");
   const [updatedAt, setUpdatedAt] = useState("");
   const [productDetail, setProductDetail] = useState({});
+  const [productCategory, setProductCategory] = useState({});
   const [productShop, setProductShop] = useState({})
+  const [relatedProducts, setRelatedProducts] = useState([]);
   const { productName } = useParams();
 
   useEffect(() => {
+    getCourseDetails();
+
+    fetch(`http://localhost:4000/v1/courses/related/${productName}`)
+      .then((res) => res.json())
+      .then((allData) => {
+        console.log(allData);
+        setRelatedProducts(allData);
+      });
+  }, []);
+
+
+
+  function getCourseDetails() {
     const localStorageData = JSON.parse(localStorage.getItem("user"));
 
     fetch(`http://localhost:4000/v1/courses/${productName}`, {
@@ -38,12 +53,11 @@ export default function ProductInfo() {
         setProductDetail(productInfo);
         setCreatedAt(productInfo.createdAt);
         setUpdatedAt(productInfo.updatedAt);
-        setProductShop(productInfo.creator)
-        console.log(productInfo);
+        setProductShop(productInfo.creator);
+        setProductCategory(productInfo.categoryID);
       });
-  }, []);
-
-  const submitComment = (newCommentBody) => {
+  }
+  const submitComment = (newCommentBody, commentScore) => {
     const localStorageData = JSON.parse(localStorage.getItem("user"));
     fetch(`http://localhost:4000/v1/comments`, {
       method: "POST",
@@ -54,6 +68,7 @@ export default function ProductInfo() {
       body: JSON.stringify({
         body: newCommentBody,
         courseShortName: productName,
+        score: commentScore,
       }),
     })
       .then((res) => res.json())
@@ -62,6 +77,144 @@ export default function ProductInfo() {
         icon:'success',
         buttons:'تایید'
       }));
+  };
+
+
+  const registerInProduct = (product) => {
+    if (product.price === 0) {
+      swal({
+        title: "آیا از ثبت نام در دوره اطمینان دارید؟",
+        icon: "warning",
+        buttons: ["نه", "آره"],
+      }).then((result) => {
+        if (result) {
+          fetch(`http://localhost:4000/v1/courses/${product._id}/register`, {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${
+                JSON.parse(localStorage.getItem("user")).token
+              }`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              price: product.price,
+            }),
+          }).then((res) => {
+            console.log(res);
+            if (res.ok) {
+              swal({
+                title: "ثبت نام با موفقیت انجام شد",
+                icon: "success",
+                buttons: "اوکی",
+              }).then(() => {
+                getCourseDetails();
+              });
+            }
+          });
+        }
+      });
+    } else {
+      swal({
+        title: "آیا از ثبت نام در دوره اطمینان دارید؟",
+        icon: "warning",
+        buttons: ["نه", "آره"],
+      }).then((result) => {
+        if (result) {
+          swal({
+            title: "در صورت داشتن کد تخفیف وارد کنید:",
+            content: "input",
+            buttons: ["ثبت نام بدون کد تخفیف", "اعمال کد تخفیف"],
+          }).then((code) => {
+            if (code === null) {
+              fetch(`http://localhost:4000/v1/courses/${product._id}/register`, {
+                method: "POST",
+                headers: {
+                  Authorization: `Bearer ${
+                    JSON.parse(localStorage.getItem("user")).token
+                  }`,
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  price: product.price,
+                }),
+              }).then((res) => {
+                console.log(res);
+                if (res.ok) {
+                  swal({
+                    title: "ثبت نام با موفقیت انجام شد",
+                    icon: "success",
+                    buttons: "اوکی",
+                  }).then(() => {
+                    getCourseDetails();
+                  });
+                }
+              });
+            } else {
+              fetch(`http://localhost:4000/v1/offs/${code}`, {
+                method: "POST",
+                headers: {
+                  Authorization: `Bearer ${
+                    JSON.parse(localStorage.getItem("user")).token
+                  }`,
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  course: product._id,
+                }),
+              })
+                .then((res) => {
+                  console.log(res);
+
+                  if (res.status == 404) {
+                    swal({
+                      title: "کد تخفیف معتبر نیست",
+                      icon: "error",
+                      buttons: "ای بابا",
+                    });
+                  } else if (res.status == 409) {
+                    swal({
+                      title: "کد تخفیف قبلا استفاده شده :/",
+                      icon: "error",
+                      buttons: "ای بابا",
+                    });
+                  } else {
+                    return res.json();
+                  }
+                })
+                .then((code) => {
+                  fetch(
+                    `http://localhost:4000/v1/courses/${product._id}/register`,
+                    {
+                      method: "POST",
+                      headers: {
+                        Authorization: `Bearer ${
+                          JSON.parse(localStorage.getItem("user")).token
+                        }`,
+                        "Content-Type": "application/json",
+                      },
+                      body: JSON.stringify({
+                        price:
+                        product.price - (product.price * code.percent) / 100,
+                      }),
+                    }
+                  ).then((res) => {
+                    console.log(res);
+                    if (res.ok) {
+                      swal({
+                        title: "ثبت نام با موفقیت انجام شد",
+                        icon: "success",
+                        buttons: "اوکی",
+                      }).then(() => {
+                        getCourseDetails();
+                      });
+                    }
+                  });
+                });
+            }
+          });
+        }
+      });
+    }
   };
 
   return (
@@ -75,13 +228,13 @@ export default function ProductInfo() {
           { id: 1, title: "خانه", to: "" },
           {
             id: 2,
-            title: "زیبایی و سلامت",
-            to: "categey-info/beauty-and-healthy",
+            title: `محصولات`,
+            to: `products/1`,
           },
           {
             id: 3,
-            title: "کرم مراقبت از پوست زنان Night-Cosmetics",
-            to: "product-info/Night-Cosmetics-cream",
+            title: `${productDetail.name}`,
+            to: `product-info/${productDetail.shortName}`,
           },
         ]}
       />
@@ -95,7 +248,7 @@ export default function ProductInfo() {
           <div className="row">
             <div className="col-6">
               <a href="#" className="course-info__link">
-                زیبایی و سلامت
+                {productCategory.title}
               </a>
               <h1 className="course-info__title">{productDetail.name}</h1>
               <p className="course-info__text">{productDetail.description}</p>
@@ -115,7 +268,7 @@ export default function ProductInfo() {
             <div className="col-6">
               <video
                 src=""
-                poster="/images/products/NightCosmetics.jpg"
+                poster={`/images/products/${productDetail.cover}`}
                 className="course-info__video"
                 controls
               ></video>
@@ -151,8 +304,8 @@ export default function ProductInfo() {
                       icon="calendar-days"
                     />
                     <ProductDetailBox
-                      title="آخرین بروزسانی موجودی انبار"
-                      text={updatedAt.slice(0, 10)}
+                      title="قیمت"
+                      text={`${productDetail.price} تومان`}
                       icon="clock"
                     />
                     <ProductDetailBox
@@ -167,7 +320,7 @@ export default function ProductInfo() {
                     />
                     <ProductDetailBox
                       title="نوع محصول"
-                      text="فیزیکی"
+                      text={productDetail.support}
                       icon="quote-right"
                     />
                   </div>
@@ -205,72 +358,36 @@ export default function ProductInfo() {
                 <div className="introduction">
                   <div className="introduction__item">
                     <span className="introduction__title title">
-                      کرم مراقبت از پوست زنان Night-Cosmetics &nbsp;
+                    {productDetail.name} &nbsp;
                     </span>
                     <img
-                      src="/images/products/NightCosmetics.jpg"
+                      src={`/images/products/${productDetail.cover}`}
                       alt="course info image"
                       className="introduction__img img-fluid"
                     />
                     <p className="introduction__text">
-                      لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ
-                      و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه
-                      روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای
-                      شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف
-                      بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه
-                      درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می
-                      طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه
-                      ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی
-                      ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری
-                      موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد
-                      وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی
-                      سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده
-                      قرار گیرد.
+                    {productDetail.description}
                     </p>
                     <p className="introduction__text"></p>
                   </div>
                   <div className="introduction__item">
                     <span className="introduction__title title">
-                      لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ
+                    {productDetail.name}
                       &nbsp;
                     </span>
                     <img
-                      src="/images/products/testcream.jpg"
+                      src={`/images/products/${productDetail.cover}`}
                       alt="course info image"
                       className="introduction__img img-fluid"
                     />
                     <p className="introduction__text">
-                      لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ
-                      و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه
-                      روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای
-                      شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف
-                      بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه
-                      درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می
-                      طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه
-                      ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی
-                      ایجاد کرد
+                    {productDetail.description}
                     </p>
                     <p className="introduction__text">
-                      لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ
-                      و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه
-                      روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای
-                      شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف
-                      بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه
-                      درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می
-                      طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه
-                      ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی
-                      ایجاد کرد
+                    {productDetail.description}
                     </p>
                     <p className="introduction__text">
-                      لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ
-                      و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه
-                      روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای
-                      شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف
-                      بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه
-                      درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می
-                      طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه
-                      ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی
-                      ایجاد کرد
+                    {productDetail.description}
                     </p>
                   </div>
                   <div className="introduction__btns">
@@ -305,38 +422,6 @@ export default function ProductInfo() {
                           </div>
                         </Accordion.Body>
                       ))}
-                      {/* <Accordion.Body className="introduction__accordion-body">
-                        <div className="introduction__accordion-right">
-                          <span className="introduction__accordion-count">
-                            2
-                          </span>
-                          &nbsp;
-                          <p className="introduction__accordion-link">
-                            تولید کننده
-                          </p>
-                        </div>
-                        <div className="introduction__accordion-left">
-                          <span className="introduction__accordion-time">
-                            شرکت کرم سازی کرج
-                          </span>
-                        </div>
-                      </Accordion.Body>
-                      <Accordion.Body className="accordion-body introduction__accordion-body">
-                        <div className="introduction__accordion-right">
-                          <span className="introduction__accordion-count">
-                            3
-                          </span>
-                          &nbsp;
-                          <p className="introduction__accordion-link">
-                            موارد مصرف
-                          </p>
-                        </div>
-                        <div className="introduction__accordion-left">
-                          <span className="introduction__accordion-time">
-                            رطوبت پوست
-                          </span>
-                        </div>
-                      </Accordion.Body> */}
                     </Accordion.Item>
                   </Accordion>
                 </div>
@@ -351,7 +436,7 @@ export default function ProductInfo() {
                       productShop !== null ? (
                         <div className="techer-details__header-right">
                         <img
-                          src={productShop.profile}
+                          src={`/images/info/${productShop.profile}`}
                           alt="Teacher Profile"
                           className="techer-details__header-img"
                         />
@@ -417,10 +502,12 @@ export default function ProductInfo() {
                         &nbsp;به سبد خرید افزوده شده
                       </span>
                     ) : (
-                      <span className="course-info__register-title">
+                      <span className="course-info__register-title" onClick={() => registerInProduct(productDetail)}>
                         <i className="fas fa-cart-plus course-info__register-icon"></i>
                         &nbsp;افزودن به سبد خرید
+                        
                       </span>
+                      
                     )}
                   </div>
                 </div>
@@ -441,7 +528,7 @@ export default function ProductInfo() {
                       <div className="course-info__total-comment">
                         <i className="far fa-comments course-info__total-comment-icon"></i>
                         <span className="course-info__total-comment-text">
-                          67 دیدگاه
+                          {comments.length} دیدگاه
                         </span>
                       </div>
                       <div className="course-info__total-view">
@@ -479,54 +566,23 @@ export default function ProductInfo() {
                     محصولات مرتبط
                   </span>
                   <ul className="course-info__courses-list">
-                    <li className="course-info__courses-list-item">
-                      <a href="#" className="course-info__courses-link">
-                        <img
-                          src="/images/products/bababomb-cream.jpg"
-                          alt="Course Cover"
-                          className="course-info__courses-img"
-                        />
-                        <span className="course-info__courses-text">
-                          کرم بابا بمب تارت
-                        </span>
-                      </a>
-                    </li>
-                    <li className="course-info__courses-list-item">
-                      <a href="#" className="course-info__courses-link">
-                        <img
-                          src="/images/products/beautysleep-cream.jpg"
-                          alt="Course Cover"
-                          className="course-info__courses-img"
-                        />
-                        <span className="course-info__courses-text">
-                          کرم شب بیوتی اسلیپ ایت کازمتیکس
-                        </span>
-                      </a>
-                    </li>
-                    <li className="course-info__courses-list-item">
-                      <a href="#" className="course-info__courses-link">
-                        <img
-                          src="/images/products/vichy-cream.jpg"
-                          alt="Course Cover"
-                          className="course-info__courses-img"
-                        />
-                        <span className="course-info__courses-text">
-                          آبرسان و مرطوب کننده فیتوسولوشن نورمادرم ویشی
-                        </span>
-                      </a>
-                    </li>
-                    <li className="course-info__courses-list-item">
-                      <a href="#" className="course-info__courses-link">
-                        <img
-                          src="/images/products/nuxe-cream.jpg"
-                          alt="Course Cover"
-                          className="course-info__courses-img"
-                        />
-                        <span className="course-info__courses-text">
-                          ماسک پاک کننده آرایش اینستا نوکس حجم 50 میل اورجینال
-                        </span>
-                      </a>
-                    </li>
+                  {relatedProducts.map((product) => (
+                        <li className="course-info__courses-list-item">
+                          <Link
+                            to={`/product-info/${product.shortName}`}
+                            className="course-info__courses-link"
+                          >
+                            <img
+                              src={`/images/products/${product.cover}`}
+                              alt="product Cover"
+                              className="course-info__courses-img"
+                            />
+                            <span className="course-info__courses-text">
+                              {product.name}
+                            </span>
+                          </Link>
+                        </li>
+                      ))}
                   </ul>
                 </div>
               </div>

@@ -38,8 +38,10 @@ export default function App() {
           setIsLoggedIn(true);
           setUserInfos(userData);
         });
+    } else {
+      setIsLoggedIn(false)
     }
-  }, [login]);
+  }, [login, logout]);
 
   return (
     <AuthContext.Provider
