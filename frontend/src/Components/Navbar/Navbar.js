@@ -58,13 +58,16 @@ export default function Navbar() {
                   </Link>
                 </li>
               ))}
-
-              {/* <li className="main-header__item">
-                <a href="#" className="main-header__link">
-                  فرانت اند
-                  
-                </a>
-              </li> */}
+              <li className="main-header__item">
+                <Link to={`/contact`} className="main-header__link">
+                  ارتباط با ما
+                </Link>
+              </li>
+              <li className="main-header__item">
+                <Link to={`/about`} className="main-header__link">
+                  درباره ما
+                </Link>
+              </li>
             </ul>
           </div>
 
