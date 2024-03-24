@@ -280,6 +280,9 @@ obj/
 /node_modules
 /wwwroot/node_modules
 
+backend
+lms.agz
+
 ### Node ###
 # Logs
 logs
